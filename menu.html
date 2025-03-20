@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú - The Cake</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Estilos generales */
+body {
+    background-color: #f8a29b;
+    color: #333;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+/* Panel principal */
+.menu-category {
+    background-color: #f4cac7;
+    border-radius: 15px;
+    padding: 20px;
+    margin: 20px auto;
+    max-width: 900px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.menu-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+/* Tarjetas de productos */
+.menu-item {
+    background: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+.menu-item:hover {
+    transform: scale(1.05);
+}
+.menu-item img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.menu-item h4 {
+    margin: 10px 0;
+    font-size: 18px;
+}
+.counter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+.counter button {
+    background-color: #ffbc0a;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 5px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.counter .count {
+    margin: 0 10px;
+    font-size: 18px;
+    font-weight: bold;
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <img src="imagenes/logo1.png" alt="Logo The Cake">
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">The Cake</a></li>
+                <li><a href="#">Menú</a></li>
+                <li><a href="#">Sucursales</a></li>
+                <li><a href="#">Contáctanos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <h2>MENÚ</h2>
+
+        <!-- Sección: PORCIONES -->
+        <section class="menu-category">
+            <h3>PORCIONES</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="imagenes/chocotorta.jpeg" alt="Chocotorta">
+                    <h4>Chocotorta</h4>
+                    <p>Bs. 18</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/oreoclasica.jpeg" alt="Oreo Clásico">
+                    <h4>Oreo Clásico</h4>
+                    <p>Bs. 18</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/nutella.jpeg" alt="Nutella">
+                    <h4>Nutella</h4>
+                    <p>Bs. 20</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div><div class="menu-item">
+                    <img src="imagenes/oreodulce.png" alt="Oreo de Dulce de Leche">
+                    <h4>Oreo de Dulce de Leche</h4>
+                    <p>Bs. 20</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/piedelimon.png" alt="Nutella">
+                    <h4>Pie de Limon</h4>
+                    <p>Bs. 20</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>                    
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/frutosrojos.png" alt="Nutella">
+                    <h4>Frutos Rojos</h4>
+                    <p>Bs. 20</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: PANINIS -->
+        <section class="menu-category">
+            <h3>PANINIS</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="imagenes/jamonqueso.png" alt="Jamón y Queso">
+                    <h4>Jamón y Queso</h4>
+                    <p>Bs. 16</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/quesoypesto.png" alt="Tres Quesos">
+                    <h4>Tres Quesos</h4>
+                    <p>Bs. 16</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: CAFÉ -->
+        <section class="menu-category">
+            <h3>CAFÉ</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="imagenes/americano.jpeg" alt="Americano">
+                    <h4>Americano</h4>
+                    <p>Bs. 12</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/capuccino.jpeg" alt="Capuccino">
+                    <h4>Capuccino</h4>
+                    <p>Bs. 16</p>   
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: CHOCOLATES -->
+        <section class="menu-category">
+            <h3>CHOCOLATES</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="imagenes/submarino.jpeg" alt="Submarino">
+                    <h4>Submarino</h4>
+                    <p>Bs. 20</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/chocomarsh.jpeg" alt="Chocolate & Marshmallows">
+                    <h4>Chocolate & Marshmallows</h4>
+                    <p>Bs. 20</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección: LICUADOS -->
+        <section class="menu-category">
+            <h3>LICUADOS</h3>
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <img src="imagenes/limonadarosa.jpeg" alt="Limonada Rosa">
+                    <h4>Limonada Rosa</h4>
+                    <p>Bs. 15</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+                <div class="menu-item">
+                    <img src="imagenes/tropical.jpeg" alt="Jugo Tropical">
+                    <h4>Jugo Tropical</h4>
+                    <p>Bs. 17</p>
+                    <div class="counter">
+                        <button class="minus">-</button>
+                        <span class="count">0</span>
+                        <button class="plus">+</button>
+                    </div>
+                </div>
+            </div>
+        </section>  
+
+    </main>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section left">
+                <p><i class="fas fa-map-marker-alt"> </i><strong> Dirección:</strong> Gabriel Rene Moreno, La Paz, Bolivia</p>
+                <p><i class="fas fa-phone"></i> <strong>Teléfono:</strong> +591 123 4567</p>
+                <p><i class="fas fa-envelope"></i> <strong>Email:</strong> info@thecake.com</p>
+                <p><i class="fas fa-globe"></i> <strong>Sitio web:</strong> www.thecake.com</p>
+            </div>
+            <div class="footer-section center">
+                <h2>THE CAKE</h2>
+                <p><strong>Horario de atención:</strong></p>
+                <p>Lunes a domingo: 8:00 a.m. - 9:00 p.m.</p>
+            </div>
+            <div class="footer-section right">
+                <p><strong>Síguenos en redes sociales:</strong></p>
+                <p><i class="fab fa-instagram"></i> <strong>Instagram:</strong> @thecake_lapaz</p>
+                <p><i class="fab fa-facebook"></i> <strong>Facebook:</strong> The Cake La Paz</p>
+                <p><i class="fab fa-twitter"></i> <strong>Twitter:</strong> @thecake_lapaz</p>
+            </div>
+        </div>
+    </footer>
+    
+    
+    
+    
+
+    <script src="script.js"></script>
+</body>
+</html>
