@@ -19,7 +19,9 @@ if (isset($_SESSION['id_usuario'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Estilos personalizados -->
     <link rel="stylesheet" href="../../public/assets/css/stylesLS.css">
-
+    <!-- En el head de tu HTML -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 
 </head>
 <body>
@@ -106,5 +108,8 @@ if (isset($_SESSION['id_usuario'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     <!-- Script personalizado -->
     <script src="../../public/assets/js/scriptLS.js"></script>
+    <!-- Antes de cerrar el body -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 </html>
