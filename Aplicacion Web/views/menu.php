@@ -1,3 +1,5 @@
+
+
 <?php
 require_once '../connection.php';
 
@@ -26,21 +28,32 @@ while ($producto = $result->fetch_assoc()) {
 // Cerrar la conexión
 $conn->close();
 ?>
+
+<?php 
+require_once 'check_role.php';
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú - The Cake</title>
-    <link rel="stylesheet" href="../public/assets/css/styles.css">
-    <link rel="stylesheet" href="../public/assets/css/stylesIndex.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="./../public/assets/css/styleFooter.css">
-    <link rel="stylesheet" href="./../public/assets/css/styleCarrito.css">
+    <link rel="stylesheet" href="../public/assets/css/styleCarrito.css">
+
+    <link rel="icon" href="../public/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
+    <link rel="stylesheet" href="../public/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../public/assets/css/fonts.css">
+    <link rel="stylesheet" href="../public/assets/css/style.css">
+    <link rel="stylesheet" href="../public/assets/css/styleFooter.css">
 
         <style>
+
+            
             /* Estilos generales */
             body {
                 background: linear-gradient(135deg, #f8a29b, #ff6f61);
@@ -156,20 +169,24 @@ $conn->close();
                 transform: translate(-50%, -50%) scale(1);
             }
 
-            /* Menú de navegación */
-            .navbar {
-                background: rgba(255, 255, 255, 0.9);
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            }
+            .rd-navbar-nav {
+    display: flex;
+    align-items: center; /* Asegura que estén alineados verticalmente */
+    justify-content: space-around; /* O "space-between" según necesites */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.rd-nav-item {
+    padding: 10px 15px; /* Asegura que todos los elementos tengan el mismo espacio */
+}
+.rd-nav-item a {
+    text-decoration: none;
+    color: black; /* Ajusta según tu diseño */
+}
 
-            .navbar-brand img {
-                height: 60px;
-                transition: transform 0.3s ease-in-out;
-            }
 
-            .navbar-brand img:hover {
-                transform: rotate(10deg);
-            }
+            
 
             .nav-link {
                 font-size: 1.1rem;
@@ -199,7 +216,7 @@ $conn->close();
                 50% { transform: translateY(-20px); }
             }
 
-        }
+        
 
         .
         /* Estilos para el ícono del carrito */
@@ -260,31 +277,106 @@ $conn->close();
         </style>
 </head>
 <body>
-
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.php">THE CAKE</a></li>
-                    <li class="nav-item"><a class="nav-link" href="menu.php">MENU</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Sucursal.html">SUCURSALES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">CONTACTANOS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="auth/interfazpaneles.php">PANELES</a></li>
-                </ul>
-            </div>
-            <!-- Ícono del carrito -->
-            <a href="pedido.php" class="cart-icon">
-                <i class="fas fa-shopping-cart"></i>
-            </a>
+    <div class="preloader">
+      <div class="wrapper-triangle">
+        <div class="pen">
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
+    <div class="page">
+    <header class="section page-header">
+    <!-- RD Navbar-->
+    <div class="rd-navbar-wrap">
+        <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px" data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner-outer">
+                <div class="rd-navbar-inner">
+                    <!-- RD Navbar Panel-->
+                    <div class="rd-navbar-panel">
+                        <!-- RD Navbar Toggle-->
+                        <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                        <!-- RD Navbar Brand-->
+                        <div class="rd-navbar-brand"><a class="brand" href="index.php"><img class="brand-logo-dark" src="../public/assets/images/logoTheCake.png" alt="" width="198" height="66"/></a></div>
+                    </div>
+                    <div class="rd-navbar-right rd-navbar-nav-wrap">
+                        <div class="rd-navbar-aside">
+                            <ul class="rd-navbar-contacts-2">
+                                <li>
+                                    <div class="unit unit-spacing-xs">
+                                        <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
+                                        <div class="unit-body"><a class="phone" href="tel:#">+591 75424853</a></div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="unit unit-spacing-xs">
+                                        <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
+                                        <div class="unit-body"><a class="address" href="#">Gabriel Rene Moreno, La Paz, Bolivia</a></div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <ul class="list-share-2">
+                                <li><a class="icon mdi mdi-facebook" href="https://www.facebook.com/TheCake.bo/?locale=es_LA" target="_blank"></a></li>
+                                <li><a class="icon mdi mdi-instagram" href="https://www.instagram.com/thecake.bolivia/?hl=es" target="_blank"></a></li>
+                            </ul>
+                        </div>
+                        <div class="rd-navbar-main">
+                            <!-- RD Navbar Nav-->
+                            <ul class="rd-navbar-nav">
+                                <li class="rd-nav-item <?php echo basename($_SERVER['PHP_SELF']) === 'index.php' ? 'active' : ''; ?>">
+                                    <a class="rd-nav-link" href="index.php">THE CAKE</a>
+                                </li>
+                                <li class="rd-nav-item <?php echo basename($_SERVER['PHP_SELF']) === 'menu.php' ? 'active' : ''; ?>">
+                                    <a class="rd-nav-link" href="menu.php">MENU</a>
+                                </li>
+                                <li class="rd-nav-item <?php echo basename($_SERVER['PHP_SELF']) === 'sucursales.php' ? 'active' : ''; ?>">
+                                    <a class="rd-nav-link" href="sucursales.php">SUCURSALES</a>
+                                </li>
+                                <li class="rd-nav-item <?php echo basename($_SERVER['PHP_SELF']) === 'contacts.php' ? 'active' : ''; ?>">
+                                    <a class="rd-nav-link" href="contacts.php">CONTACTANOS</a>
+                                </li>
+                                <?php if(isset($_SESSION['id_usuario'])): ?>
+                                    <li class="rd-nav-item <?php echo basename($_SERVER['PHP_SELF']) === 'InterfazPaneles.php' ? 'active' : ''; ?>">
+                                        <a class="rd-nav-link" href="auth/InterfazPaneles.php">PANELES</a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </div>
+                        <!-- Ícono del carrito -->
+                        <a href="pedido.php" class="cart-icon">
+                            <i class="fas fa-shopping-cart"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
 
     <main>
     <h2>MENÚ</h2>
@@ -304,7 +396,7 @@ $conn->close();
                                     <img src="../public/assets/img/no-image.png" alt="Sin imagen">
                                 <?php } ?>
                                 <h4><?php echo htmlspecialchars($producto['nombre_producto']); ?></h4>
-                                <p>Precio: $<?php echo number_format($producto['precio'], 2); ?></p>
+                                <p>Precio: Bs.<?php echo number_format($producto['precio'], 2); ?></p>
                             </div>
                         <?php endforeach; ?>
                     </div>
@@ -317,8 +409,9 @@ $conn->close();
 </main>
 
 
-    <!-- Footer mejorado -->
-    <footer>
+    <!-- Page Footer-->
+       <!-- Footer mejorado -->
+       <footer>
         <div class="footer-container">
             <!-- Sección de Contacto -->
             <div class="footer-section">
@@ -349,5 +442,13 @@ $conn->close();
             </div>
         </div>
     </footer>
-</body>
+      
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="../public/assets/js/core.min.js"></script>
+    <script src="../public/assets/js/scriptIndex.js"></script>
+    <!-- coded by Himic-->
+  </body>
 </html>

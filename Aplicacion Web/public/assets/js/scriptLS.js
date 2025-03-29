@@ -49,7 +49,6 @@ function clearErrors() {
     document.querySelectorAll(".error-message").forEach(el => el.textContent = "");
 }
 
-// Validación del formulario de Login
 document.getElementById('loginForm').addEventListener('submit', function (e) {
     e.preventDefault();
     clearErrors();
@@ -58,7 +57,6 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
     const email = document.getElementById('loginEmail').value.trim();
     const password = document.getElementById('loginPassword').value.trim();
 
-    // Validación del email
     if (email === "") {
         showError('loginEmailError', 'Completa este campo.');
         isValid = false;
@@ -67,7 +65,6 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
         isValid = false;
     }
 
-    // Validación de la contraseña
     if (password === "") {
         showError('loginPasswordError', 'Completa este campo.');
         isValid = false;
@@ -76,7 +73,6 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
         isValid = false;
     }
 
-    // Si la validación es correcta, enviar el formulario mediante AJAX
     if (isValid) {
         const formData = new FormData(document.getElementById('loginForm'));
 
@@ -84,28 +80,44 @@ document.getElementById('loginForm').addEventListener('submit', function (e) {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())  // Asegúrate de que la respuesta sea JSON
+        .then(response => response.json())
         .then(data => {
             if (data.error) {
-                // Mostrar el mensaje de error en el formulario
-                showError('loginEmailError', data.error);
+                // ⚠️ Alerta de error con SweetAlert
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: data.error,
+                });
             } else if (data.success) {
-                // Redirigir a la página de prueba si el login es exitoso
-                window.location.href = data.redirect;  // Usar la ruta devuelta por el servidor
+                // ✅ Alerta de éxito con SweetAlert
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Inicio de sesión exitoso!",
+                    text: "Redirigiendo...",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = data.redirect; // Redirigir al usuario
+                });
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Hubo un problema al iniciar sesión. Por favor, inténtalo de nuevo más tarde.');
+            Swal.fire({
+                icon: "error",
+                title: "Error de conexión",
+                text: "Hubo un problema al iniciar sesión. Inténtalo de nuevo más tarde.",
+            });
         });
     }
 });
+
 
 function validateRole(role) {
     return role !== ""; // Asegura que se haya seleccionado un rol
 }
 
-// Validación del formulario de registro
 document.getElementById('signupForm').addEventListener('submit', function (e) {
     e.preventDefault();
     clearErrors();
@@ -119,7 +131,6 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     const confirmPassword = document.getElementById('signupConfirmPassword').value.trim();
     const role = document.getElementById('signupRole').value;
 
-    // Validación de los campos locales
     if (name === "") {
         showError('signupNameError', 'Completa este campo.');
         isValid = false;
@@ -174,26 +185,42 @@ document.getElementById('signupForm').addEventListener('submit', function (e) {
     }
 
     if (isValid) {
-        // Si la validación local es correcta, enviamos el formulario usando AJAX
         const formData = new FormData(document.getElementById('signupForm'));
 
         fetch('signup_process.php', {
             method: 'POST',
             body: formData
         })
-        .then(response => response.json())  // Asegúrate de que la respuesta sea JSON
+        .then(response => response.json())
         .then(data => {
             if (data.error) {
-                alert(data.error);  // Muestra el mensaje de error en un alert
+                // ⚠️ Alerta de error con SweetAlert
+                Swal.fire({
+                    icon: "error",
+                    title: "Error",
+                    text: data.error,
+                });
             } else if (data.success) {
-                alert(data.success);  // Muestra el mensaje de éxito en un alert
-                window.location.href = 'LoginSignUp.php';  // Recarga la página
+                // ✅ Alerta de éxito con SweetAlert
+                Swal.fire({
+                    icon: "success",
+                    title: "¡Registro exitoso!",
+                    text: "Serás redirigido al login...",
+                    timer: 2000,
+                    showConfirmButton: false
+                }).then(() => {
+                    window.location.href = 'LoginSignUp.php'; // Redirigir después del éxito
+                });
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('Hubo un problema al registrar. Por favor, intentalo de nuevo más tarde.');
+            Swal.fire({
+                icon: "error",
+                title: "Error de conexión",
+                text: "Hubo un problema al registrar. Inténtalo de nuevo más tarde.",
+            });
         });
-        
     }
 });
+

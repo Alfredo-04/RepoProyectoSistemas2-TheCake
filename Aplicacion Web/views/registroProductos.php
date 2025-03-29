@@ -65,11 +65,26 @@ if (isset($_GET['eliminar'])) {
 }
 ?>
 
+<?php 
+require_once 'check_role.php';
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Gestión de Productos</title>
+
+        
+    <link rel="icon" href="../public/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
+    <link rel="stylesheet" href="../public/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../public/assets/css/fonts.css">
+    <link rel="stylesheet" href="../public/assets/css/style.css">
+    <link rel="stylesheet" href="../public/assets/css/styleFooter.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -83,7 +98,7 @@ if (isset($_GET['eliminar'])) {
     margin: 0;
     padding: 0;
     text-align: center;
-    overflow-x: hidden;
+
 }
 
 h2 {
@@ -114,8 +129,11 @@ h2 {
     to { transform: translateY(0); opacity: 1; }
 }
 
+/* Estilos específicos para el formulario */
 form {
-    background: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -123,15 +141,27 @@ form {
 }
 
 .form-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 20px;
     font-weight: bold;
     color: #ff6f61;
+    position: relative;
+    z-index: 10;
+}
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 10;
 }
 
 .form-control {
     border: 1px solid #ff6f61;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     font-size: 1rem;
+    margin-bottom: 10px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -331,22 +361,92 @@ body::before {
 </style>
 </head>
 <body>
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="auth/interfazpaneles.php">PANELES</a></li>
-                </ul>
-            </div>
+<div class="preloader">
+      <div class="wrapper-triangle">
+        <div class="pen">
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
+    <div class="page">
+      <!-- Page Header-->
+      <header class="section page-header">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px" data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner-outer">
+              <div class="rd-navbar-inner">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="../public/assets/images/logoTheCake.png" alt="" width="198" height="66"/></a></div>
+                </div>
+                <div class="rd-navbar-right rd-navbar-nav-wrap">
+                  <div class="rd-navbar-aside">
+                    <ul class="rd-navbar-contacts-2">
+                      <li>
+                        <div class="unit unit-spacing-xs">
+                          <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
+                          <div class="unit-body"><a class="phone" href="tel:#">+591 75424853</a></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-spacing-xs">
+                          <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
+                          <div class="unit-body"><a class="address" href="#">Gabriel Rene Moreno, La Paz, Bolivia</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul class="list-share-2">
+                      <li><a class="icon mdi mdi-facebook" href="https://www.facebook.com/TheCake.bo/?locale=es_LA" target="_blank"></a></li>
+                      
+                      <li><a class="icon mdi mdi-instagram" href="https://www.instagram.com/thecake.bolivia/?hl=es" target="_blank"></a></li>
+                     
+                    </ul>
+                  </div>
+                  <div class="rd-navbar-main">
+                    <!-- RD Navbar Nav-->
+                    <ul class="rd-navbar-nav">
+                      
+                      <li class="rd-nav-item"><a class="rd-nav-link" href="auth/InterfazPaneles.php">PANELES</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
     <div class="container mt-5">
         <h2>Registro de Productos</h2>
 
@@ -383,7 +483,7 @@ body::before {
                 <label class="form-label">Imagen</label>
                 <input type="file" class="form-control" name="imagen">
             </div>
-            </div>
+            
             <button type="submit" name="crear" class="btn btn-success">Agregar Producto</button>
         </form>
 
@@ -401,6 +501,7 @@ body::before {
                     <th>Precio</th>
                     <th>Stock Mínimo</th>
                     <th>Categoría</th>
+                    <th>Descripcion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -459,7 +560,9 @@ body::before {
         <button type="submit" name="editar" class="btn btn-primary">Actualizar</button>
     </form>
 </div>
-    <footer>
+   <!-- Page Footer-->
+       <!-- Footer mejorado -->
+       <footer>
         <div class="footer-container">
             <!-- Sección de Contacto -->
             <div class="footer-section">
@@ -472,7 +575,7 @@ body::before {
                 </ul>
             </div>
     
-            <!-- Sección de Horario -->
+            <!-- Sección de Horario --> 
             <div class="footer-section">
                 <h3>THE CAKE</h3>
                 <p><strong>Horario de atención:</strong></p>
@@ -490,6 +593,15 @@ body::before {
             </div>
         </div>
     </footer>
+      
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="../public/assets/js/core.min.js"></script>
+    <script src="../public/assets/js/scriptIndex.js"></script>
+    <!-- coded by Himic-->
+
 
     <script>
         function editarProducto(id, nombre, precio, stock, categoria_id, descripcion) {

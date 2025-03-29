@@ -1,139 +1,158 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrusel Bootstrap</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="../public/assets/css/styles.css">
-    <link rel="stylesheet" href="../public/assets/css/stylesIndex.css">
-    <link rel="stylesheet" href="./../public/assets/css/styleFooter.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-</head>
-<body>
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
+
+<?php
+include 'templates/header.php';
+?>
+      
+      <!-- Swiper-->
+      <section class="section swiper-container swiper-slider swiper-slider-2 swiper-slider-3" data-loop="true" data-autoplay="5000" data-simulate-touch="false" data-slide-effect="fade">
+        <div class="swiper-wrapper text-sm-left">
+          <div class="swiper-slide context-dark" data-slide-bg="../public/assets/CAKE/6.png">
+            <div class="swiper-slide-caption section-md">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-9 col-md-8 col-lg-7 col-xl-7 offset-lg-1 offset-xxl-0">
+                    <h1 class="oh swiper-title"><span class="d-inline-block" data-caption-animate="slideInUp" data-caption-delay="0">MOMENTOS INOLVIDABLES</span></h1>
+                    <p class="big swiper-text" data-caption-animate="fadeInLeft" data-caption-delay="300">Visitanos con amigos o con esa persona especial para llevar en tu corazon los mejores recuerdos</p><a class="button button-lg button-primary button-winona button-shadow-2" href="#" data-caption-animate="fadeInUp" data-caption-delay="300">Nuestro menu</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide context-dark" data-slide-bg="../public/assets/CAKE/1.png">
+            <div class="swiper-slide-caption section-md">
+              <div class="container">
+                <div class="row">
+                  <div class="col-sm-8 col-lg-7 offset-lg-1 offset-xxl-0">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Swiper Pagination-->
+        <div class="swiper-pagination" data-bullet-custom="true"></div>
+        <!-- Swiper Navigation-->
+        <div class="swiper-button-prev">
+          <div class="preview">
+            <div class="preview__img"></div>
+          </div>
+          <div class="swiper-button-arrow"></div>
+        </div>
+        <div class="swiper-button-next">
+          <div class="swiper-button-arrow"></div>
+          <div class="preview">
+            <div class="preview__img"></div>
+          </div>
+        </div>
+      </section>
+    <!--MAPA-->
+    <section>
+      <div class="row w-100">
+        <div class="col-lg-6 my-4">
+          <img src="../public/assets/CAKE/2.png" alt="">
+        </div>
+        <div class="col-lg-6 my-4 d-flex align-items-center">
+          <div>
+            <h3 class="mb-4">SOMOS THE CAKE!!!</h3>
+            <p class="lead"><strong>The Cake</strong> - Maravillosos recuerdos que lleva tu paladar</p>
+            
+            <p class="mt-4">En The Cake nos preocupamos por tu estancia en nuestro local ya que preparamos todos nuestros productos con amor y cariño para que te lleves una experiencia inolvidable y puedas volver, solo, con tu familia, con tus amigos y/o con tu persona favorita.
+              Nos encontramos en la Zona Sur de La Paz y en el centro de Tarija.
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </section>
+      
+      <!-- QUE DICE LA GENTE-->
+      <section class="section section-xl bg-default">
         <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.php">THE CAKE</a></li>
-                    <li class="nav-item"><a class="nav-link" href="menu.php">MENU</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Sucursal.html">SUCURSALES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">CONTACTANOS</a></li>
-                </ul>
-            </div>
+          <h3 class="wow fadeInLeft">¿QUÉ DICE LA GENTE DE NOSOTROS?</h3>
         </div>
-    </nav>
-
-    <!-- Carrusel -->
-    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="../public/assets/img/1.png" class="d-block w-100" alt="Imagen 1">
-            </div>
-            <div class="carousel-item">
-                <img src="../public/assets/img/2.png" class="d-block w-100" alt="Imagen 2">
-            </div>
-            <div class="carousel-item">
-                <img src="../public/assets/img/3.png" class="d-block w-100" alt="Imagen 3">
-            </div>
-            <div class="carousel-item">
-                <img src="../public/assets/img/4.png" class="d-block w-100" alt="Imagen 4">
-            </div>
-            <div class="carousel-item">
-                <img src="../public/assets/img/5.png" class="d-block w-100" alt="Imagen 5">
-            </div>
+        <div class="container container-style-1">
+          <div class="owl-carousel owl-style-12" data-items="1" data-sm-items="2" data-lg-items="3" data-margin="30" data-xl-margin="45" data-autoplay="true" data-nav="true" data-center="true" data-smart-speed="400">
+            <!-- Quote Tara-->
+            <article class="quote-tara">
+              <div class="quote-tara-caption">
+                <div class="quote-tara-text">
+                  <p class="q">The Cake es la cafetería con más tradición en la ciudad y está excelentemente gestionada. Los precios son geniales y me permiten seguir viniendo cada semana.</p>
+                </div>
+                <div class="quote-tara-figure"><img src="../public/assets/CAKE/persona.jpg" alt="" width="115" height="115"/>
+                </div>
+              </div>
+              <h6 class="quote-tara-author">Leandro Bolaños</h6>
+              <div class="quote-tara-status">Cliente</div>
+            </article>
+            <!-- Quote Tara-->
+            <article class="quote-tara">
+              <div class="quote-tara-caption">
+                <div class="quote-tara-text">
+                  <p class="q">Soy un auténtico adicto a los postres, y aunque esté en casa prefiero los pasteles de The Cake antes que cualquier otro. Son deliciosos y tienen un precio muy razonable.</p>
+                </div>
+                <div class="quote-tara-figure"><img src="../public/assets/CAKE/persona.jpg" alt="" width="115" height="115"/>
+                </div>
+              </div>
+              <h6 class="quote-tara-author">Daniel Mendiola</h6>
+              <div class="quote-tara-status">Cliente</div>
+            </article>
+            <!-- Quote Tara-->
+            <article class="quote-tara">
+              <div class="quote-tara-caption">
+                <div class="quote-tara-text">
+                  <p class="q">The Cake tiene unos pasteles increíbles. No solo te atienden con una gran sonrisa, sino que además disfrutas de postres exquisitos a un precio excelente.</p>
+                </div>
+                <div class="quote-tara-figure"><img src="../public/assets/CAKE/persona.jpg" alt="" width="115" height="115"/>
+                </div>
+              </div>
+              <h6 class="quote-tara-author">Alfredo Cortez</h6>
+              <div class="quote-tara-status">Cliente</div>
+            </article>
+            <!-- Quote Tara-->
+            
+          </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        </button>
-    </div>
+      </section>
+     
 
-    <!-- Sección de Ubicación -->
- <!-- Sección de Ubicación -->
- <section id="ubicacion" class="container my-5">
-
-  <!-- Objetivo -->
-  <div class="objectives-container text-center my-5">
-        <h3>THE CAKE</h3>
-        <ul class="list-unstyled">
-        <p class="text-justify">The Cake es un rincón dulce y acogedor ubicado en el corazón de La Paz, Bolivia, donde los amantes del café y los postres pueden disfrutar de momentos inolvidables. Con una combinación perfecta de elegancia y calidez, esta cafetería se ha convertido en un destino favorito para locales y turistas que buscan deleitarse con sabores únicos y una experiencia gastronómica excepcional.</p>
-        </ul>
-    </div>
-
-    <div class="info-container d-flex justify-content-between my-5">
-        <div class="info-box">
-            <h3 class="text-center">Objetivo</h3>
-            <li><i class="bi bi-check-circle"></i> Mantener la más alta calidad en productos y servicio.</li>
-            <li><i class="bi bi-check-circle"></i> Innovar en sabores y presentaciones.</li>
-            <li><i class="bi bi-check-circle"></i> Expandir nuestra presencia en Bolivia.</li>
+      <!-- Section Services  Last section-->
+      <section class="section section-sm bg-default">
+        <div class="container">
+          <div class="owl-carousel owl-style-11 dots-style-2" data-items="1" data-sm-items="1" data-lg-items="2" data-xl-items="4" data-margin="30" data-dots="true" data-mouse-drag="true" data-rtl="true">
+            <article class="box-icon-megan wow fadeInUp">
+              <div class="box-icon-megan-header">
+                <div class="box-icon-megan-icon linearicons-bag"></div>
+              </div>
+              <h5 class="box-icon-megan-title"><a href="#">Misión</a></h5>
+              <p class="box-icon-megan-text">Endulzar momentos especiales con creatividad y calidad, ofreciendo pasteles artesanales hechos con ingredientes frescos y amor boliviano.</p>
+            </article>
+            <article class="box-icon-megan wow fadeInUp" data-wow-delay=".05s">
+              <div class="box-icon-megan-header">
+                <div class="box-icon-megan-icon linearicons-map2"></div>
+              </div>
+              <h5 class="box-icon-megan-title"><a href="#">Visión</a></h5>
+              <p class="box-icon-megan-text">Ser la pastelería líder en Bolivia, reconocida por innovar en sabores tradicionales y convertir cada celebración en una experiencia memorable.</p>
+            </article>
+            <article class="box-icon-megan wow fadeInUp" data-wow-delay=".1s">
+              <div class="box-icon-megan-header">
+                <div class="box-icon-megan-icon linearicons-radar"></div>
+              </div>
+              <h5 class="box-icon-megan-title"><a href="#">Objetivo</a></h5>
+              <p class="box-icon-megan-text">Superar expectativas con diseños personalizados, atención cálida y compromiso con la satisfacción total de nuestros clientes.</p>
+            </article>
+            <article class="box-icon-megan wow fadeInUp" data-wow-delay=".15s">
+              <div class="box-icon-megan-header">
+                <div class="box-icon-megan-icon linearicons-thumbs-up"></div>
+              </div>
+              <h5 class="box-icon-megan-title"><a href="#">Filosofía</a></h5>
+              <p class="box-icon-megan-text">Creemos que cada pastel cuenta una historia. Combinamos tradición, innovación y pasión por la repostería en cada creación.</p>
+            </article>
+          </div>
         </div>
+      </section>
 
-        <div class="info-box">
-            <h3 class="text-center">Misión</h3>
-            <p class="text-justify">Ofrecer experiencias gastronómicas únicas a través de pasteles, postres y café de alta calidad, en un ambiente acogedor que celebra los momentos especiales.</p>
-        </div>
-
-        <div class="info-box">
-            <h3 class="text-center">Visión</h3>
-            <p class="text-justify">Ser la cafetería líder en La Paz, reconocida por nuestra creatividad, excelencia y compromiso con la satisfacción del cliente.</p>
-        </div>
-    </div>
-
-
-    <h2 class="text-center mb-4 text-light">Ubicación</h2>
-    <div class="map-container d-flex justify-content-center mb-4">
-        <div class="map-frame-container">
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3824.681816561739!2d-68.08126762485396!3d-16.54215348420799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x915f21044fa3d5ef%3A0x397f76d4267ff4c2!2sThe%20Cake!5e0!3m2!1ses!2sbo!4v1742440799728!5m2!1ses!2sbo" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        </div>
-    </div>
-
-    <!-- Descripción, Misión, Visión y Objetivos -->
-
-</section>
-
-<footer>
-        <div class="footer-container">
-            <!-- Sección de Contacto -->
-            <div class="footer-section">
-                <h3>CONTACTO</h3>
-                <ul>
-                    <li><i class="fas fa-map-marker-alt"></i> Gabriel Rene Moreno, La Paz, Bolivia</li>
-                    <li><i class="fas fa-phone"></i> +591 75424853</li>
-                    <li><i class="fas fa-envelope"></i> marce_laime@hotmail.com</li>
-                    <li><i class="fas fa-globe"></i> <a href="http://www.thecake.com" target="_blank">www.thecake.com</a></li>
-                </ul>
-            </div>
-    
-            <!-- Sección de Horario -->
-            <div class="footer-section">
-                <h3>THE CAKE</h3>
-                <p><strong>Horario de atención:</strong></p>
-                <p>Lunes a domingo: 8:00 a.m. - 9:00 p.m.</p>
-            </div>
-    
-            <!-- Sección de Redes Sociales -->
-            <div class="footer-section">
-                <h3>SÍGUENOS</h3>
-                <ul class="social-links">
-                    <li><a href="https://www.instagram.com/thecake.bolivia" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="https://www.facebook.com/share/12G4iwabKJT/" target="_blank"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="https://api.whatsapp.com/send/?phone=%2B59175427853&text&type=phone_number&app_absent=0" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+// Incluir el footer
+include 'templates/footer.php';
+?>     

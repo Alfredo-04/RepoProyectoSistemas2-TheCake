@@ -2,10 +2,11 @@
 require_once '../connection.php';
 
 // Consulta SQL para obtener los productos, sus categorías y el stock disponible
-$sql = "SELECT p.id_producto, p.nombre_producto, p.precio, p.descripcion, p.imagen, c.nombre_categoria, ip.cantidad_disponible 
+$sql = "SELECT p.id_producto, p.nombre_producto, p.precio, p.descripcion, p.imagen, c.nombre_categoria, 
+        COALESCE(ip.cantidad_disponible, 0) AS cantidad_disponible
         FROM productos p
         JOIN categorias_productos c ON p.categoria_producto_id = c.id_categoria
-        JOIN inventario_productos ip ON p.id_producto = ip.id_producto
+        LEFT JOIN inventario_productos ip ON p.id_producto = ip.id_producto
         ORDER BY c.nombre_categoria, p.nombre_producto";
 
 $result = $conn->query($sql);
@@ -34,6 +35,10 @@ while ($metodo = $resultMetodosPago->fetch_assoc()) {
 
 // Cerrar la conexión
 $conn->close();
+?>
+
+<?php 
+require_once 'check_role.php';
 ?>
 <!DOCTYPE html>
 <html lang="es">
