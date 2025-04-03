@@ -1,0 +1,83 @@
+use thecakebd;
+INSERT INTO categorias_productos (nombre_categoria, descripcion) VALUES
+('Porciones', 'Deliciosas porciones de pasteles y postres'),
+('Paninis', 'Sandwiches calientes y deliciosos'),
+('Café', 'Bebidas de café de alta calidad'),
+('Chocolates', 'Bebidas y postres de chocolate');
+ 
+-- Porciones
+INSERT INTO productos (nombre_producto, precio, categoria_producto_id, descripcion, stock_minimo) VALUES
+('Chocotorta', 18.00, 1, 'Torta de chocolate y dulce de leche', 10),
+('Oreo Clásico', 18.00, 1, 'Torta de galletas Oreo', 10),
+('Nutella', 20.00, 1, 'Torta con crema de avellanas Nutella', 10),
+('Oreo de Dulce de Leche', 20.00, 1, 'Torta de Oreo con dulce de leche', 10),
+('Pie de Limon', 20.00, 1, 'Pie de limón con base de galleta', 10),
+('Frutos Rojos', 20.00, 1, 'Torta con frutos rojos frescos', 10);
+ 
+-- Paninis
+INSERT INTO productos (nombre_producto, precio, categoria_producto_id, descripcion, stock_minimo) VALUES
+('Jamón y Queso', 16.00, 2, 'Panini con jamón y queso derretido', 10),
+('Tres Quesos', 16.00, 2, 'Panini con tres tipos de queso', 10);
+ 
+-- Café
+INSERT INTO productos (nombre_producto, precio, categoria_producto_id, descripcion, stock_minimo) VALUES
+('Americano', 12.00, 3, 'Café americano clásico', 10),
+('Capuccino', 16.00, 3, 'Capuccino con espuma de leche', 10);
+ 
+-- Chocolates
+INSERT INTO productos (nombre_producto, precio, categoria_producto_id, descripcion, stock_minimo) VALUES
+('Submarino', 20.00, 4, 'Chocolate caliente con barra de chocolate', 10),
+('Chocolate & Marshmallows', 20.00, 4, 'Chocolate caliente con malvaviscos', 10);
+ 
+INSERT INTO inventario_productos (id_producto, cantidad_disponible) VALUES
+(1, 20), (2, 20), (3, 20), (4, 20), (5, 20), (6, 20),
+(7, 20), (8, 20), (9, 20), (10, 20), (11, 20), (12, 20);
+ 
+INSERT INTO metodos_pago (nombre_metodo_pago, descripcion) 
+VALUES 
+('Efectivo', 'Pago en efectivo'), 
+('QR', 'Pago mediante código QR');
+ 
+ 
+ALTER TABLE productos ADD COLUMN imagen LONGBLOB;
+ 
+INSERT INTO categorias_productos (nombre_categoria, descripcion) VALUES
+('Licuados y Jugos', 'Bebidas refrescantes y naturales hechas con frutas frescas'),
+('Frapes', 'Bebidas frías a base de café o crema, perfectas para disfrutar en cualquier momento');
+
+INSERT INTO clientes (nombre, telefono, correo)
+
+VALUES ('Juan Pérez', '123456789', 'juan.perez@example.com');
+ 
+INSERT INTO empleados (id_usuario, nombre, telefono, direccion, fecha_contratacion)
+
+VALUES (7, 'Leandro Bolaños', '78452369', 'Av. Siempre Viva 123', '2024-10-05');
+ 
+INSERT INTO clientes (nombre, telefono, correo)
+
+VALUES ('Yussen', '69917799', 'yuss@example.com');
+ 
+INSERT INTO empleados (id_usuario, nombre, telefono, direccion, fecha_contratacion)
+
+VALUES (8, 'Daniel Mendiola', '72058890', 'Av. Satelite', '2024-05-05');
+ select * from usuarios;
+-- Insertar el pedido en la tabla `pedidos`
+INSERT INTO pedidos (id_cliente, id_empleado, metodo_pago_id, estado_pedido, total)
+VALUES (1, 1, 1, 'Pendiente', 48.00);
+ 
+-- Obtener el ID del pedido recién insertado
+SET @id_pedido = LAST_INSERT_ID();
+-- Insertar los detalles del pedido en la tabla `detalle_pedido`
+INSERT INTO detalle_pedido (id_pedido, id_producto, cantidad, precio_unitario)
+VALUES 
+(@id_pedido, 1, 2, 18.00),  -- Chocotorta
+(@id_pedido, 9, 1, 12.00);  -- Americano
+ 
+-- Actualizar el stock en la tabla `inventario_productos`
+UPDATE inventario_productos
+SET cantidad_disponible = cantidad_disponible - 2
+WHERE id_producto = 1;  -- Reducir stock de Chocotorta
+ 
+UPDATE inventario_productos
+SET cantidad_disponible = cantidad_disponible - 1
+WHERE id_producto = 9;  -- Reducir stock de Americano
