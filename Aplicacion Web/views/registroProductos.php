@@ -64,17 +64,20 @@ if (isset($_GET['eliminar'])) {
     exit;
 }
 ?>
-
-<!DOCTYPE html>
-<html lang="es">
+<?php 
+require_once 'check_role.php';
+?>
+<?php
+include 'templates/header.php';
+?>     
 <head>
-    <meta charset="UTF-8">
     <title>Gestión de Productos</title>
+
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./../public/assets/css/styleRegistro.css">
-    <link rel="stylesheet" href="./../public/assets/css/styleFooter.css">
 <style>
     body {
     background: linear-gradient(135deg, #f8a29b, #ff6f61);
@@ -83,7 +86,7 @@ if (isset($_GET['eliminar'])) {
     margin: 0;
     padding: 0;
     text-align: center;
-    overflow-x: hidden;
+
 }
 
 h2 {
@@ -114,8 +117,11 @@ h2 {
     to { transform: translateY(0); opacity: 1; }
 }
 
+/* Estilos específicos para el formulario */
 form {
-    background: rgba(255, 255, 255, 0.9);
+    position: relative;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.95);
     padding: 20px;
     border-radius: 15px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
@@ -123,15 +129,27 @@ form {
 }
 
 .form-label {
+    display: block;
+    text-align: left;
+    margin-bottom: 20px;
     font-weight: bold;
     color: #ff6f61;
+    position: relative;
+    z-index: 10;
+}
+
+.mb-3 {
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 10;
 }
 
 .form-control {
     border: 1px solid #ff6f61;
     border-radius: 10px;
-    padding: 10px;
+    padding: 5px;
     font-size: 1rem;
+    margin-bottom: 10px;
     transition: border-color 0.3s, box-shadow 0.3s;
 }
 
@@ -330,23 +348,7 @@ body::before {
 }
 </style>
 </head>
-<body>
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="auth/interfazpaneles.php">PANELES</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+
     <div class="container mt-5">
         <h2>Registro de Productos</h2>
 
@@ -383,7 +385,7 @@ body::before {
                 <label class="form-label">Imagen</label>
                 <input type="file" class="form-control" name="imagen">
             </div>
-            </div>
+            
             <button type="submit" name="crear" class="btn btn-success">Agregar Producto</button>
         </form>
 
@@ -401,6 +403,7 @@ body::before {
                     <th>Precio</th>
                     <th>Stock Mínimo</th>
                     <th>Categoría</th>
+                    <th>Descripcion</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
@@ -425,10 +428,9 @@ body::before {
                                 <i class="fas fa-edit"></i> <!-- Ícono de editar -->
                             </button>
 
-                            <!-- Botón de eliminar -->
-                            <a href="?eliminar=<?php echo $row['id_producto']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?');">
-                                <i class="fas fa-trash"></i> <!-- Ícono de eliminar -->
-                            </a>
+                            <button class="btn btn-danger btn-sm" onclick="confirmarEliminacion(<?php echo $row['id_producto']; ?>, '<?php echo addslashes($row['nombre_producto']); ?>')">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -459,7 +461,9 @@ body::before {
         <button type="submit" name="editar" class="btn btn-primary">Actualizar</button>
     </form>
 </div>
-    <footer>
+   <!-- Page Footer-->
+       <!-- Footer mejorado -->
+       <footer>
         <div class="footer-container">
             <!-- Sección de Contacto -->
             <div class="footer-section">
@@ -472,7 +476,7 @@ body::before {
                 </ul>
             </div>
     
-            <!-- Sección de Horario -->
+            <!-- Sección de Horario --> 
             <div class="footer-section">
                 <h3>THE CAKE</h3>
                 <p><strong>Horario de atención:</strong></p>
@@ -490,6 +494,15 @@ body::before {
             </div>
         </div>
     </footer>
+      
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="../public/assets/js/core.min.js"></script>
+    <script src="../public/assets/js/scriptIndex.js"></script>
+    <!-- coded by Himic-->
+
 
     <script>
         function editarProducto(id, nombre, precio, stock, categoria_id, descripcion) {
@@ -502,5 +515,52 @@ body::before {
     document.getElementById('modalEditar').style.display = 'block';
 }
     </script>
+
+<script>
+function confirmarEliminacion(idProducto, nombreProducto) {
+    Swal.fire({
+        title: '¿Eliminar producto?',
+        html: `Estás a punto de eliminar el producto <b>"${nombreProducto.replace(/"/g, '&quot;')}"</b>.<br>¿Deseas continuar?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Crear un formulario dinámico para enviar la solicitud
+            const form = document.createElement('form');
+            form.method = 'GET';
+            form.action = window.location.pathname;
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'eliminar';
+            input.value = idProducto;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            
+            // Mostrar loader mientras se procesa
+            Swal.fire({
+                title: 'Eliminando producto',
+                html: 'Por favor espera...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    form.submit();
+                }
+            });
+        }
+    });
+}
+</script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+         <!-- SweetAlert2 JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

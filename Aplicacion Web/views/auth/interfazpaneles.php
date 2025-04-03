@@ -3,14 +3,13 @@ session_start();
 
 // Verificar si el usuario está autenticado
 if (!isset($_SESSION['id_usuario'])) {
-    // Si no está autenticado, redirigir al formulario de login
     header("Location: LoginSignUp.php");
     exit();
 }
 
 // Obtener el nombre y rol del usuario desde la sesión
 $nombreUsuario = $_SESSION['nombre'];
-$rolUsuario = $_SESSION['rol_id'];  // Cambiado a 'rol_id'
+$rolUsuario = $_SESSION['rol_id'];
 
 // Obtener el nombre del rol desde la base de datos
 include '../../connection.php';
@@ -22,43 +21,75 @@ $result = $stmt->get_result();
 $rol = $result->fetch_assoc()['nombre_rol'];
 $conn->close();
 ?>
-
-
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 'acceso_denegado') {
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: "error",
+            title: "Acceso denegado",
+            text: "No tienes permiso para acceder a esa página.",
+            confirmButtonColor: "#ff6f61",
+            confirmButtonText: "Entendido"
+        });
+    });
+    </script>';
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Cake - Administrador</title>
+    <title>The Cake - Paneles</title>
+
+        <link rel="icon" href="../../public/assets/images/favicon.ico" type="image/x-icon">
+    <!-- Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
+    <link rel="stylesheet" href="../../public/assets/css/bootstrap.css">
+    <link rel="stylesheet" href="../../public/assets/css/fonts.css">
+    <link rel="stylesheet" href="../../public/assets/css/style.css">
+    <link rel="stylesheet" href="../../public/assets/css/styleFooter.css">
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="../../public/assets/css/stylesSucursal.css">
-    <link rel="stylesheet" href="../../public/assets/css/styles.css">
-    <link rel="stylesheet" href="../../public/assets/css/stylesIndex.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+
+
 
 
 
     <style>
+        /* Estilos generales */
         body {
-            background-color: #f8a29b;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-    
+                background: linear-gradient(135deg, #f8a29b, #ff6f61);
+                color: #333;
+                font-family: 'Poppins', sans-serif;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+                overflow-x: hidden;
+            }
+
+            h2 {
+                font-size: 40px;
+                color: #fff;
+                text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+                margin: 40px 0;
+                animation: fadeIn 2s ease-in-out;
+            }
         .panel {
             background-color: #f4cac7; /* Color secundario */
             border-radius: 15px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 30px;
+            padding: 20px;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -86,7 +117,14 @@ $conn->close();
             background-color: #f4a900; /* Un tono más oscuro del complementario */
             transform: scale(1.05);
         }
-    
+        
+         /* Nuevo estilo para paneles deshabilitados */
+        .panel-disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+
         header img {
             width: 100%;
             max-height: 300px;
@@ -244,89 +282,220 @@ footer {
     </style>
     
 </head>
+
 <body>
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="../../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="interfazpaneles.php">PANELES</a></li>
-                </ul>
-            </div>
+    <div class="preloader">
+      <div class="wrapper-triangle">
+        <div class="pen">
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
+          <div class="line-triangle">
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+            <div class="triangle"></div>
+          </div>
         </div>
-    </nav>
+      </div>
+    </div>
+    <div class="page">
+      <!-- Page Header-->
+      <header class="section page-header">
+        <!-- RD Navbar-->
+        <div class="rd-navbar-wrap">
+          <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px" data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
+            <div class="rd-navbar-inner-outer">
+              <div class="rd-navbar-inner">
+                <!-- RD Navbar Panel-->
+                <div class="rd-navbar-panel">
+                  <!-- RD Navbar Toggle-->
+                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
+                  <!-- RD Navbar Brand-->
+                  <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="../../public/assets/images/logoTheCake.png" alt="" width="198" height="66"/></a></div>
+                </div>
+                <div class="rd-navbar-right rd-navbar-nav-wrap">
+                  <div class="rd-navbar-aside">
+                    <ul class="rd-navbar-contacts-2">
+                      <li>
+                        <div class="unit unit-spacing-xs">
+                          <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
+                          <div class="unit-body"><a class="phone" href="tel:#">+591 75424853</a></div>
+                        </div>
+                      </li>
+                      <li>
+                        <div class="unit unit-spacing-xs">
+                          <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
+                          <div class="unit-body"><a class="address" href="#">Gabriel Rene Moreno, La Paz, Bolivia</a></div>
+                        </div>
+                      </li>
+                    </ul>
+                    <ul class="list-share-2">
+                      <li><a class="icon mdi mdi-facebook" href="https://www.facebook.com/TheCake.bo/?locale=es_LA" target="_blank"></a></li>
+                      
+                      <li><a class="icon mdi mdi-instagram" href="https://www.instagram.com/thecake.bolivia/?hl=es" target="_blank"></a></li>
+                     
+                    </ul>
+                  </div>
+                  <div class="rd-navbar-main">
+                    <!-- RD Navbar Nav-->
+                    <ul class="rd-navbar-nav">
+                      <li class="rd-nav-item"><a class="rd-nav-link" href="InterfazPaneles.php">PANELES</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+               
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
      
     <div class="container mt-5">
         <div class="text-center mb-5">
-            <h1>¡Bienvenido, <?php echo $nombreUsuario; ?>!</h1>
+            <h2>¡Bienvenido, <?php echo $nombreUsuario; ?>!</h2>
             <h2>Tu rol es: <?php echo $rol; ?></h2>
             <form action="logout.php" method="POST">
-                <button type="submit" class="btnCerrarSesion">Cerrar sesión</button>
+                <button type="submit" class="btnCerrarSesion" style="background: #ff6f61; color: white">Cerrar sesión</button>
             </form>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <!-- Panel Hacer Pedido (Visible para Administrador y Mesero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 3 && $rolUsuario != 5) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
-                    <h3>Hacer Pedido</h3>
-                    <button onclick="window.location.href='../pedido.php'">
-                        <i class="fas fa-shopping-cart"></i> Ir a Pedido
-                    </button>
+                    <h2>Hacer Pedido</h2>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 3 || $rolUsuario == 5): ?>
+                        <button onclick="window.location.href='../pedido.php'">
+                            <i class="fas fa-shopping-cart"></i> Ir a Pedido
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-shopping-cart"></i> No disponible
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-4">
+            
+            <!-- Panel Ver Menú (Visible para Administrador y Mesero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 3) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
-                    <h3>Ver Menú</h3>
-                    <button onclick="window.location.href='../menu.php'">
-                        <i class="fas fa-utensils"></i> Ir al Menú
-                    </button>
+                    <h2>Ver Menú</h2>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 3): ?>
+                        <button onclick="window.location.href='../menu.php'">
+                            <i class="fas fa-utensils"></i> Ir al Menú
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-utensils"></i> No disponible
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-4">
+            
+            <!-- Panel Gestión de Usuarios (Solo Administrador) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
-                    <h3>Gestión de Usuarios</h3>
-                    <button onclick="window.location.href='../usuarios.php'">
-                        <i class="fas fa-users-cog"></i> Administrar Usuarios
-                    </button>
+                    <h2>Gestión de Usuarios</h2>
+                    <?php if($rolUsuario == 1): ?>
+                        <button onclick="window.location.href='../usuarios.php'">
+                            <i class="fas fa-users-cog"></i> Administrar Usuarios
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-users-cog"></i> No disponible
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-4">
+            <!-- Panel Historial de Pedidos (Visible para todos excepto Mesero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario == 3 || $rolUsuario == 5) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
-                    <h3>Historial de Pedidos</h3>
-                    <button onclick="window.location.href='../historial.php'">
-                        <i class="fas fa-history"></i> Ver Historial
-                    </button>
+                    <h2>Historial de Pedidos</h2>
+                    <?php if($rolUsuario != 3 || $rolUsuario == 5): ?>
+                        <button onclick="window.location.href='../historial.php'">
+                            <i class="fas fa-history"></i> Ver Historial
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-history"></i> No disponible
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-4">
+            
+            <!-- Panel Registro Productos (Administrador y Cocinero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 4) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
-                    <h3>Registro</h3>
-                    <button onclick="window.location.href='../registroProductos.php'">
-                    <i class="fas fa-clipboard-list"></i>
-                    Registro Pedidos
-                    </button>
+                    <h2>Registro</h2>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 4): ?>
+                        <button onclick="window.location.href='../registroProductos.php'">
+                            <i class="fas fa-clipboard-list"></i> Registro Productos
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-clipboard-list"></i> No disponible
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
-            <div class="col-md-4">
+            
+            <!-- Panel Stock (Visible para Administrador y Cocinero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 4) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
-                    <h3>Stock</h3>
-                    <button onclick="window.location.href='../stock.php'">
-                    <i class="fas fa-boxes"></i>
+                    <h2>Stock</h2>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 4): ?>
+                        <button onclick="window.location.href='../stock.php'">
+                            <i class="fas fa-boxes"></i> Ver el Stock
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-boxes"></i> No disponible
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
 
-                    Ver el Stock
-                    </button>
+            <!-- Panel Gestion Mesas (Visible para Administrador y Mesero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 3) ? 'panel-disabled' : ''; ?>">
+                <div class="panel">
+                    <h2>Gestion de mesas</h2>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 3): ?>
+                        <button onclick="window.location.href='../gestion_mesas.php'">
+                            <i class="fas fa-shopping-cart"></i> Mesas
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-shopping-cart"></i> No disponible
+                        </button>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
     </div>
-    <footer>
+    <!-- Page Footer-->
+       <!-- Footer mejorado -->
+       <footer>
         <div class="footer-container">
             <!-- Sección de Contacto -->
             <div class="footer-section">
@@ -339,7 +508,7 @@ footer {
                 </ul>
             </div>
     
-            <!-- Sección de Horario -->
+            <!-- Sección de Horario --> 
             <div class="footer-section">
                 <h3>THE CAKE</h3>
                 <p><strong>Horario de atención:</strong></p>
@@ -357,6 +526,21 @@ footer {
             </div>
         </div>
     </footer>
+      
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="../../public/assets/js/core.min.js"></script>
+    <script src="../../public/assets/js/scriptIndex.js"></script>
+    <!-- coded by Himic-->
+
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+
 </body>
 </html>

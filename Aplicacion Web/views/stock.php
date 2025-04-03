@@ -51,17 +51,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['agregar_producto'])) 
     exit;
 }
 ?>
+<?php 
+require_once 'check_role.php';
+?>
 
-<!DOCTYPE html>
-<html lang="es">
 <head>
-    <meta charset="UTF-8">
     <title>Stock</title>
+
+    
+    
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./../public/assets/css/styleStock.css">
     <link rel="stylesheet" href="./../public/assets/css/styleFooter.css">
+
+
+
+    <?php
+include 'templates/header.php';
+?>     
     <style>
         body {
     background: linear-gradient(135deg, #f8a29b, #ff6f61);
@@ -323,23 +333,6 @@ form {
 }
     </style>
 </head>
-<body>
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="auth/interfazpaneles.php">PANELES</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
     <div class="container mt-5">
         <h2>Inventario de Productos</h2>
@@ -384,7 +377,9 @@ form {
         </div>
     </div>
 
-    <footer>
+    <!-- Page Footer-->
+       <!-- Footer mejorado -->
+       <footer>
         <div class="footer-container">
             <!-- Sección de Contacto -->
             <div class="footer-section">
@@ -397,7 +392,7 @@ form {
                 </ul>
             </div>
     
-            <!-- Sección de Horario -->
+            <!-- Sección de Horario --> 
             <div class="footer-section">
                 <h3>THE CAKE</h3>
                 <p><strong>Horario de atención:</strong></p>
@@ -415,5 +410,16 @@ form {
             </div>
         </div>
     </footer>
-</body>
+      
+    </div>
+    <!-- Global Mailform Output-->
+    <div class="snackbars" id="form-output-global"></div>
+    <!-- Javascript-->
+    <script src="../public/assets/js/core.min.js"></script>
+    <script src="../public/assets/js/scriptIndex.js"></script>
+    <!-- coded by Himic-->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
