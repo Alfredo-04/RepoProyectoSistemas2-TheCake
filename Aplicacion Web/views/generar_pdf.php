@@ -1,6 +1,6 @@
 <?php
 require_once '../connection.php';
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 // Obtener parámetros de la URL
 $estadoFiltro = isset($_GET['estado']) ? $_GET['estado'] : '';

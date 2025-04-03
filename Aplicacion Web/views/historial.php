@@ -87,24 +87,17 @@ function formatearFecha($fechaCompleta) {
     }
 }
 ?>
+<?php
+include 'templates/header.php';
+?>  
 
-<!DOCTYPE html>
-<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Historial de Pedidos</title>
 
 
 
 
-    <link rel="icon" href="../public/assets/images/favicon.ico" type="image/x-icon">
-    <!-- Stylesheets-->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
-    <link rel="stylesheet" href="../public/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../public/assets/css/fonts.css">
-    <link rel="stylesheet" href="../public/assets/css/style.css">
-    <link rel="stylesheet" href="../public/assets/css/styleFooter.css">
 
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
@@ -112,93 +105,7 @@ function formatearFecha($fechaCompleta) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
 
 </head>
-<body>
-<div class="preloader">
-      <div class="wrapper-triangle">
-        <div class="pen">
-          <div class="line-triangle">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-          </div>
-          <div class="line-triangle">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-          </div>
-          <div class="line-triangle">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="page">
-      <!-- Page Header-->
-      <header class="section page-header">
-        <!-- RD Navbar-->
-        <div class="rd-navbar-wrap">
-          <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px" data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-            <div class="rd-navbar-inner-outer">
-              <div class="rd-navbar-inner">
-                <!-- RD Navbar Panel-->
-                <div class="rd-navbar-panel">
-                  <!-- RD Navbar Toggle-->
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                  <!-- RD Navbar Brand-->
-                  <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="../public/assets/images/logoTheCake.png" alt="" width="198" height="66"/></a></div>
-                </div>
-                <div class="rd-navbar-right rd-navbar-nav-wrap">
-                  <div class="rd-navbar-aside">
-                    <ul class="rd-navbar-contacts-2">
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
-                          <div class="unit-body"><a class="phone" href="tel:#">+591 75424853</a></div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
-                          <div class="unit-body"><a class="address" href="#">Gabriel Rene Moreno, La Paz, Bolivia</a></div>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul class="list-share-2">
-                      <li><a class="icon mdi mdi-facebook" href="https://www.facebook.com/TheCake.bo/?locale=es_LA" target="_blank"></a></li>
-                      
-                      <li><a class="icon mdi mdi-instagram" href="https://www.instagram.com/thecake.bolivia/?hl=es" target="_blank"></a></li>
-                     
-                    </ul>
-                  </div>
-                  <div class="rd-navbar-main">
-                    <!-- RD Navbar Nav-->
-                    <ul class="rd-navbar-nav">
-                      
-                      <li class="rd-nav-item"><a class="rd-nav-link" href="auth/InterfazPaneles.php">PANELES</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-               
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
+     
 
       <h2>Historial de Pedidos</h2>
 
@@ -341,6 +248,6 @@ document.querySelectorAll('.cambiarEstado').forEach(select => {
     select.dataset.prevValue = select.value;
 });
 </script>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

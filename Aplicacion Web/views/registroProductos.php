@@ -64,32 +64,20 @@ if (isset($_GET['eliminar'])) {
     exit;
 }
 ?>
-
 <?php 
 require_once 'check_role.php';
 ?>
-
-
-<!DOCTYPE html>
-<html lang="es">
+<?php
+include 'templates/header.php';
+?>     
 <head>
-    <meta charset="UTF-8">
     <title>Gestión de Productos</title>
 
-        
-    <link rel="icon" href="../public/assets/images/favicon.ico" type="image/x-icon">
-    <!-- Stylesheets-->
-    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Roboto:100,300,300i,400,500,600,700,900%7CRaleway:500">
-    <link rel="stylesheet" href="../public/assets/css/bootstrap.css">
-    <link rel="stylesheet" href="../public/assets/css/fonts.css">
-    <link rel="stylesheet" href="../public/assets/css/style.css">
-    <link rel="stylesheet" href="../public/assets/css/styleFooter.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="./../public/assets/css/styleRegistro.css">
-    <link rel="stylesheet" href="./../public/assets/css/styleFooter.css">
 <style>
     body {
     background: linear-gradient(135deg, #f8a29b, #ff6f61);
@@ -360,93 +348,7 @@ body::before {
 }
 </style>
 </head>
-<body>
-<div class="preloader">
-      <div class="wrapper-triangle">
-        <div class="pen">
-          <div class="line-triangle">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-          </div>
-          <div class="line-triangle">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-          </div>
-          <div class="line-triangle">
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-            <div class="triangle"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="page">
-      <!-- Page Header-->
-      <header class="section page-header">
-        <!-- RD Navbar-->
-        <div class="rd-navbar-wrap">
-          <nav class="rd-navbar rd-navbar-modern" data-layout="rd-navbar-fixed" data-sm-layout="rd-navbar-fixed" data-md-layout="rd-navbar-fixed" data-md-device-layout="rd-navbar-fixed" data-lg-layout="rd-navbar-static" data-lg-device-layout="rd-navbar-fixed" data-xl-layout="rd-navbar-static" data-xl-device-layout="rd-navbar-static" data-xxl-layout="rd-navbar-static" data-xxl-device-layout="rd-navbar-static" data-lg-stick-up-offset="56px" data-xl-stick-up-offset="56px" data-xxl-stick-up-offset="56px" data-lg-stick-up="true" data-xl-stick-up="true" data-xxl-stick-up="true">
-            <div class="rd-navbar-inner-outer">
-              <div class="rd-navbar-inner">
-                <!-- RD Navbar Panel-->
-                <div class="rd-navbar-panel">
-                  <!-- RD Navbar Toggle-->
-                  <button class="rd-navbar-toggle" data-rd-navbar-toggle=".rd-navbar-nav-wrap"><span></span></button>
-                  <!-- RD Navbar Brand-->
-                  <div class="rd-navbar-brand"><a class="brand" href="#"><img class="brand-logo-dark" src="../public/assets/images/logoTheCake.png" alt="" width="198" height="66"/></a></div>
-                </div>
-                <div class="rd-navbar-right rd-navbar-nav-wrap">
-                  <div class="rd-navbar-aside">
-                    <ul class="rd-navbar-contacts-2">
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon mdi mdi-phone"></span></div>
-                          <div class="unit-body"><a class="phone" href="tel:#">+591 75424853</a></div>
-                        </div>
-                      </li>
-                      <li>
-                        <div class="unit unit-spacing-xs">
-                          <div class="unit-left"><span class="icon mdi mdi-map-marker"></span></div>
-                          <div class="unit-body"><a class="address" href="#">Gabriel Rene Moreno, La Paz, Bolivia</a></div>
-                        </div>
-                      </li>
-                    </ul>
-                    <ul class="list-share-2">
-                      <li><a class="icon mdi mdi-facebook" href="https://www.facebook.com/TheCake.bo/?locale=es_LA" target="_blank"></a></li>
-                      
-                      <li><a class="icon mdi mdi-instagram" href="https://www.instagram.com/thecake.bolivia/?hl=es" target="_blank"></a></li>
-                     
-                    </ul>
-                  </div>
-                  <div class="rd-navbar-main">
-                    <!-- RD Navbar Nav-->
-                    <ul class="rd-navbar-nav">
-                      
-                      <li class="rd-nav-item"><a class="rd-nav-link" href="auth/InterfazPaneles.php">PANELES</a>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-               
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
+
     <div class="container mt-5">
         <h2>Registro de Productos</h2>
 
@@ -526,10 +428,9 @@ body::before {
                                 <i class="fas fa-edit"></i> <!-- Ícono de editar -->
                             </button>
 
-                            <!-- Botón de eliminar -->
-                            <a href="?eliminar=<?php echo $row['id_producto']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este producto?');">
-                                <i class="fas fa-trash"></i> <!-- Ícono de eliminar -->
-                            </a>
+                            <button class="btn btn-danger btn-sm" onclick="confirmarEliminacion(<?php echo $row['id_producto']; ?>, '<?php echo addslashes($row['nombre_producto']); ?>')">
+                                <i class="fas fa-trash"></i>
+                            </button>
                         </td>
                     </tr>
                 <?php } ?>
@@ -614,5 +515,52 @@ body::before {
     document.getElementById('modalEditar').style.display = 'block';
 }
     </script>
+
+<script>
+function confirmarEliminacion(idProducto, nombreProducto) {
+    Swal.fire({
+        title: '¿Eliminar producto?',
+        html: `Estás a punto de eliminar el producto <b>"${nombreProducto.replace(/"/g, '&quot;')}"</b>.<br>¿Deseas continuar?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Crear un formulario dinámico para enviar la solicitud
+            const form = document.createElement('form');
+            form.method = 'GET';
+            form.action = window.location.pathname;
+            
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'eliminar';
+            input.value = idProducto;
+            
+            form.appendChild(input);
+            document.body.appendChild(form);
+            
+            // Mostrar loader mientras se procesa
+            Swal.fire({
+                title: 'Eliminando producto',
+                html: 'Por favor espera...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                    form.submit();
+                }
+            });
+        }
+    });
+}
+</script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+         <!-- SweetAlert2 JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

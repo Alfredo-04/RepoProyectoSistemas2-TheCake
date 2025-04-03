@@ -36,7 +36,21 @@ while ($metodo = $resultMetodosPago->fetch_assoc()) {
 // Cerrar la conexión
 $conn->close();
 ?>
-
+<?php
+if (isset($_GET['error']) && $_GET['error'] == 'acceso_denegado') {
+    echo '<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        Swal.fire({
+            icon: "error",
+            title: "Acceso denegado",
+            text: "No tienes permiso para acceder a esa página.",
+            confirmButtonColor: "#ff6f61",
+            confirmButtonText: "Entendido"
+        });
+    });
+    </script>';
+}
+?>
 <?php 
 require_once 'check_role.php';
 ?>
@@ -52,6 +66,8 @@ require_once 'check_role.php';
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="./../public/assets/css/styleFooter.css">
+        <!-- SweetAlert2 CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
         /* Estilos generales */
@@ -516,30 +532,262 @@ require_once 'check_role.php';
     from { transform: translateY(-20px); opacity: 0; }
     to { transform: translateY(0); opacity: 1; }
 }
+
+
+
+
+
+
+
+/* Estilos para el overlay de selección de consumo */
+.consumption-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1002;
+}
+
+.consumption-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.consumption-container h3 {
+    font-size: 2rem;
+    color: #ff6f61;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.consumption-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.consumption-options button {
+    background: #ff6f61;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.consumption-options button:hover {
+    background: #ff4a3d;
+    transform: translateY(-2px);
+}
+
+/* Estilos para el overlay de selección de mesas */
+.tables-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1003;
+}
+
+.tables-container {
+    background: #fff;
+    padding: 20px;
+    border-radius: 20px;
+    max-width: 500px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    animation: slideIn 0.5s ease-in-out;
+}
+
+.tables-container h3 {
+    font-size: 2rem;
+    color: #ff6f61;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.tables-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.table-item {
+    padding: 20px;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.table-item:hover {
+    background-color: #45a049;
+    transform: translateY(-3px);
+}
+
+.table-item.selected {
+    background-color: #2E7D32;
+    border: 2px solid #000;
+    transform: scale(1.05);
+}
+
+.table-info {
+    font-size: 0.9em;
+    margin-top: 5px;
+}
+
+/* Animación de entrada para los overlays */
+@keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Estilos para el navbar y dropdown */
+.navbar-brand img:hover {
+        transform: rotate(10deg);
+    }
+    
+    .nav-link:hover {
+        color: #ff6f61 !important;
+        transform: translateY(-2px);
+    }
+    
+    .dropdown-item:hover {
+        background-color: #f8a29b !important;
+        color: white !important;
+        transform: translateX(5px);
+    }
+    
+    .dropdown-item:hover i {
+        color: white !important;
+    }
+    
+    .dropdown-menu {
+        min-width: 220px;
+    }
+    
+
+    
+
+
+    /* Estilos responsivos */
+    @media (max-width: 992px) {
+        .navbar-nav {
+            padding-top: 15px;
+        }
+        
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        
+        .d-flex {
+            margin: 15px 0;
+            justify-content: flex-end;
+        }
+        
+        .dropdown-menu {
+            position: static !important;
+            transform: none !important;
+        }
+    }
     </style>
 </head>
 <body>
 
-    <!-- Menú de navegación -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.php">
-                <img src="../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.php">THE CAKE</a></li>
-                    <li class="nav-item"><a class="nav-link" href="menu.php">MENU</a></li>
-                    <li class="nav-item"><a class="nav-link" href="Sucursal.html">SUCURSALES</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">CONTACTANOS</a></li>
-                    <li class="nav-item"><a class="nav-link" href="auth/interfazpaneles.php">PANELES</a></li>
-                </ul>
+<!-- Menú de navegación -->
+<nav class="navbar navbar-expand-lg navbar-light" style="background: rgba(255, 255, 255, 0.9); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);">
+    <div class="container">
+        <a class="navbar-brand" href="index.php">
+            <img src="../public/assets/img/logo.png" alt="Logo" class="logo" style="height: 60px; transition: transform 0.3s ease-in-out;">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item"><a class="nav-link" href="index.php" style="font-size: 1.1rem; color: #333 !important; transition: color 0.3s ease-in-out;">THE CAKE</a></li>
+                <li class="nav-item"><a class="nav-link" href="menu.php" style="font-size: 1.1rem; color: #333 !important; transition: color 0.3s ease-in-out;">MENU</a></li>
+                <li class="nav-item"><a class="nav-link" href="Sucursales.php" style="font-size: 1.1rem; color: #333 !important; transition: color 0.3s ease-in-out;">SUCURSALES</a></li>
+                <li class="nav-item"><a class="nav-link" href="Contacts.php" style="font-size: 1.1rem; color: #333 !important; transition: color 0.3s ease-in-out;">CONTACTANOS</a></li>
+                <?php if(isset($_SESSION['rol_id']) && $_SESSION['rol_id'] != 5): ?>
+                    <li class="nav-item"><a class="nav-link" href="auth/interfazpaneles.php" style="font-size: 1.1rem; color: #333 !important; transition: color 0.3s ease-in-out;">PANELES</a></li>
+                <?php endif; ?>
+            </ul>
+            
+            <div class="d-flex align-items-center">
+                <?php if(isset($_SESSION['id_usuario'])): ?>
+                    <!-- Menú desplegable del usuario -->
+                    <div class="dropdown">
+                        <a href="#" class="d-flex align-items-center text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false" style="color: #ff6f61;">
+                            <i class="fas fa-user-circle fs-3 me-1" style="color: #ff6f61;"></i>
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownUser" style="background: rgba(255, 255, 255, 0.98); border-radius: 15px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); border: none; padding: 10px 0;">
+                            <li>
+                                <div class="dropdown-item" style="font-family: 'Poppins', sans-serif; color: #ff6f61; font-weight: 600; padding: 8px 20px;">
+                                    <strong><?php echo explode(' ', $_SESSION['nombre'])[0] . ' ' . explode(' ', $_SESSION['nombre'])[1]; ?></strong>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="dropdown-item" style="font-family: 'Poppins', sans-serif; color: #333; padding: 8px 20px;">
+                                    <?php 
+                                        $rol = "";
+                                        switch($_SESSION['rol_id']) {
+                                            case 1: $rol = "Administrador"; break;
+                                            case 2: $rol = "Cajero"; break;
+                                            case 3: $rol = "Mesero"; break;
+                                            case 4: $rol = "Cocinero"; break;
+                                            case 5: $rol = "Cliente"; break;
+                                        }
+                                        echo "ROL: $rol";
+                                    ?>
+                                </div>
+                            </li>
+                            <li><hr class="dropdown-divider" style="margin: 0.5rem 20px;"></li>
+                            <li>
+                                <a class="dropdown-item" href="#" style="font-family: 'Poppins', sans-serif; color: #333; transition: all 0.3s; padding: 8px 20px;">
+                                    <i class="fas fa-user-circle me-2" style="color: #ff6f61;"></i>Ver cuenta
+                                </a>
+                            </li>
+                            <li>
+                                <form action="auth/logout.php" method="POST">
+                                    <button type="submit" class="dropdown-item" style="font-family: 'Poppins', sans-serif; color: #333; transition: all 0.3s; background: none; border: none; width: 100%; text-align: left; padding: 8px 20px;">
+                                        <i class="fas fa-sign-out-alt me-2" style="color: #ff6f61;"></i>Cerrar sesión
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                <?php else: ?>
+                    <!-- Botón de iniciar sesión si no hay sesión activa -->
+                    <a href="auth/LoginSignUp.php" class="btn ms-2" style="background: #ff6f61; color: white; border-radius: 25px; padding: 8px 20px; font-family: 'Poppins', sans-serif; transition: all 0.3s;">
+                        Iniciar sesión
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
-    </nav>
+    </div>
+</nav>
 
      <!-- Ícono del carrito -->
      <div class="cart-icon" onclick="toggleCart()">
@@ -561,28 +809,59 @@ require_once 'check_role.php';
             </div>
             <div class="cart-actions">
                 <button onclick="closeCart()">Cerrar</button>
-                <button onclick="showPaymentMethods()">Pagar</button>
+                <button onclick="showConsumptionType()">Siguiente</button>
             </div>
         </div>
     </div>
 
-    <!-- Overlay de métodos de pago (oculto por defecto) -->
-    <!-- Overlay de métodos de pago (oculto por defecto) -->
-<div class="payment-overlay" id="paymentOverlay" style="display: none;">
-    <div class="payment-container">
-        <h3>Seleccione un método de pago</h3>
-        <form id="paymentForm">
-            <?php foreach ($metodosPago as $metodo): ?>
-                <label>
-                    <input type="radio" name="metodo_pago" value="<?php echo $metodo['id_metodo_pago']; ?>">
-                    <?php echo htmlspecialchars($metodo['nombre_metodo_pago']); ?>
-                </label><br>
-            <?php endforeach; ?>
-            <button type="button" onclick="processPayment()">Confirmar Pago</button>
-            <button type="button" onclick="closePaymentMethods()">Cancelar</button>
-        </form>
+
+    <!-- Overlay para seleccionar tipo de consumo -->
+    <div class="consumption-overlay" id="consumptionOverlay">
+        <div class="consumption-container">
+            <h3>¿Dónde va a consumir?</h3>
+            <div class="consumption-options">
+                <button onclick="selectConsumptionType('local')">En el local</button>
+                <button onclick="selectConsumptionType('takeaway')">Para llevar</button>
+            </div>
+            <div class="cart-actions">
+                <button onclick="closeConsumptionType()">Volver</button>
+            </div>
+        </div>
     </div>
-</div>
+
+    <!-- Overlay para seleccionar mesa (solo para consumo en local) -->
+    <div class="tables-overlay" id="tablesOverlay">
+        <div class="tables-container">
+            <h3>Seleccione una mesa disponible</h3>
+            <div class="tables-grid" id="tablesGrid">
+                <!-- Aquí se mostrarán las mesas disponibles -->
+            </div>
+            <div class="cart-actions">
+                <button onclick="closeTablesSelection()">Volver</button>
+                <button onclick="confirmTableSelection()">Confirmar Mesa</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Overlay de métodos de pago -->
+    <div class="payment-overlay" id="paymentOverlay">
+        <div class="payment-container">
+            <h3>Seleccione un método de pago</h3>
+            <form id="paymentForm">
+                <?php foreach ($metodosPago as $metodo): ?>
+                    <label>
+                        <input type="radio" name="metodo_pago" value="<?php echo $metodo['id_metodo_pago']; ?>">
+                        <?php echo htmlspecialchars($metodo['nombre_metodo_pago']); ?>
+                    </label><br>
+                <?php endforeach; ?>
+                <button type="button" onclick="processPayment()">Confirmar Pago</button>
+                <button type="button" onclick="closePaymentMethods()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+
 
 <main>
         <h2>PEDIDO</h2>
@@ -665,6 +944,8 @@ require_once 'check_role.php';
     <script>
         let cart = []; // Array para almacenar los productos del carrito
         let cartTotal = 0; // Variable para almacenar el total del carrito
+        let consumptionType = null; // Variable para almacenar el tipo de consumo
+        let selectedTableId = null; // Variable para almacenar la mesa seleccionada
 
         // Función para añadir un producto al carrito
         function addToCart(button) {
@@ -677,7 +958,12 @@ require_once 'check_role.php';
 
             // Verificar si hay stock disponible
             if (itemStock <= 0) {
-                alert('Este producto está agotado.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Producto agotado',
+                    text: 'Este producto no está disponible actualmente.',
+                    confirmButtonColor: '#ff6f61'
+                });
                 return;
             }
 
@@ -689,7 +975,12 @@ require_once 'check_role.php';
                 if (existingItem.quantity < itemStock) {
                     existingItem.quantity++;
                 } else {
-                    alert('No hay suficiente stock para este producto.');
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Stock insuficiente',
+                        text: 'No hay suficiente stock para este producto.',
+                        confirmButtonColor: '#ff6f61'
+                    });
                     return;
                 }
             } else {
@@ -711,7 +1002,7 @@ require_once 'check_role.php';
         // Función para actualizar la interfaz del carrito
         function updateCartUI() {
             const cartItemsContainer = document.getElementById('cartItems'); // Contenedor de los items del carrito
-            const cartCount = document.querySelector('.cart-count'); // Contador de productos en el carrito
+            const cartCount = document.querySelector('.cart-count'); // Contedor de productos en el carrito
             const cartTotalElement = document.getElementById('cartTotal'); // Elemento que muestra el total
 
             // Limpiar el contenedor de items del carrito
@@ -758,7 +1049,12 @@ require_once 'check_role.php';
                 cart[index].quantity++; // Incrementar la cantidad
                 updateCartUI(); // Actualizar la interfaz
             } else {
-                alert('No hay suficiente stock para este producto.');
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Stock máximo',
+                    text: 'No puedes añadir más unidades de este producto.',
+                    confirmButtonColor: '#ff6f61'
+                });
             }
         }
 
@@ -793,25 +1089,168 @@ require_once 'check_role.php';
             document.getElementById('cartOverlay').style.display = 'none'; // Ocultar el carrito
         }
 
-        // Función para mostrar el overlay de métodos de pago
-        function showPaymentMethods() {
+        // Función para mostrar el overlay de tipo de consumo
+        function showConsumptionType() {
             if (cart.length === 0) {
-                alert("El carrito está vacío."); // Mostrar alerta si el carrito está vacío
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Carrito vacío',
+                    text: 'Agrega productos al carrito antes de continuar.',
+                    confirmButtonColor: '#ff6f61'
+                });
                 return;
             }
-            document.getElementById('paymentOverlay').style.display = 'flex'; // Mostrar el overlay de métodos de pago
+            document.getElementById('cartOverlay').style.display = 'none';
+            document.getElementById('consumptionOverlay').style.display = 'flex';
+        }
+
+        // Función para cerrar el overlay de tipo de consumo
+        function closeConsumptionType() {
+            document.getElementById('consumptionOverlay').style.display = 'none';
+            document.getElementById('cartOverlay').style.display = 'flex';
+        }
+
+        // Función para seleccionar el tipo de consumo
+        function selectConsumptionType(type) {
+            consumptionType = type;
+            
+            if (type === 'takeaway') {
+                // Si es para llevar, ir directamente a pagos
+                closeConsumptionType();
+                showPaymentMethods();
+            } else {
+                // Si es para local, mostrar mesas disponibles
+                document.getElementById('consumptionOverlay').style.display = 'none';
+                showAvailableTables();
+            }
+        }
+
+        // Función para mostrar mesas disponibles
+        function showAvailableTables() {
+            // Limpiar el grid de mesas
+            const tablesGrid = document.getElementById('tablesGrid');
+            tablesGrid.innerHTML = '';
+            
+            // Hacer una petición para obtener las mesas disponibles
+            fetch('get_available_tables.php')
+                .then(response => response.json())
+                .then(tables => {
+                    if (tables.length === 0) {
+                        tablesGrid.innerHTML = '<p>No hay mesas disponibles en este momento</p>';
+                        return;
+                    }
+
+                    tables.forEach(table => {
+                        const tableElement = document.createElement('div');
+                        tableElement.className = 'table-item';
+                        tableElement.innerHTML = `
+                            <div>${table.numeroDeMesa}</div>
+                            <div class="table-info">Capacidad: ${table.capacidad}</div>
+                        `;
+                        tableElement.dataset.tableId = table.id;
+                        tableElement.onclick = function() {
+                            // Deseleccionar cualquier mesa previamente seleccionada
+                            document.querySelectorAll('.table-item.selected').forEach(item => {
+                                item.classList.remove('selected');
+                            });
+                            // Seleccionar esta mesa
+                            this.classList.add('selected');
+                            selectedTableId = table.id;
+                        };
+                        tablesGrid.appendChild(tableElement);
+                    });
+                    
+                    // Mostrar el overlay de mesas
+                    document.getElementById('tablesOverlay').style.display = 'flex';
+                })
+                .catch(error => {
+                    console.error('Error al obtener mesas:', error);
+                    tablesGrid.innerHTML = '<p>Error al cargar mesas disponibles</p>';
+                    document.getElementById('tablesOverlay').style.display = 'flex';
+                });
+        }
+
+        // Función para cerrar la selección de mesas
+        function closeTablesSelection() {
+            document.getElementById('tablesOverlay').style.display = 'none';
+            document.getElementById('consumptionOverlay').style.display = 'flex';
+            selectedTableId = null; // Resetear la mesa seleccionada
+        }
+
+        // Función para confirmar la selección de mesa
+        function confirmTableSelection() {
+            if (!selectedTableId) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Selecciona una mesa',
+                    text: 'Por favor elige una mesa para continuar.',
+                    confirmButtonColor: '#ff6f61'
+                });
+                return;
+            }
+            
+            // Marcar la mesa como ocupada en la base de datos
+            fetch('update_table_status.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    tableId: selectedTableId,
+                    status: 'ocupada'
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Ir a métodos de pago
+                    document.getElementById('tablesOverlay').style.display = 'none';
+                    showPaymentMethods();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al reservar',
+                        text: data.error || 'No se pudo reservar la mesa',
+                        confirmButtonColor: '#ff6f61'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Ocurrió un error al reservar la mesa',
+                    confirmButtonColor: '#ff6f61'
+                });
+            });
+        }
+
+        // Función para mostrar el overlay de métodos de pago
+        function showPaymentMethods() {
+            document.getElementById('paymentOverlay').style.display = 'flex';
         }
 
         // Función para cerrar el overlay de métodos de pago
         function closePaymentMethods() {
-            document.getElementById('paymentOverlay').style.display = 'none'; // Ocultar el overlay de métodos de pago
+            document.getElementById('paymentOverlay').style.display = 'none';
+            
+            // Volver al carrito si no se ha seleccionado mesa
+            if (!selectedTableId) {
+                document.getElementById('cartOverlay').style.display = 'flex';
+            }
         }
 
         // Función para procesar el pago
         function processPayment() {
             const metodoPago = document.querySelector('input[name="metodo_pago"]:checked'); // Obtener el método de pago seleccionado
             if (!metodoPago) {
-                alert('Seleccione un método de pago.'); // Mostrar alerta si no se selecciona un método de pago
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Método de pago',
+                    text: 'Por favor selecciona un método de pago',
+                    confirmButtonColor: '#ff6f61'
+                }); // Mostrar alerta si no se selecciona un método de pago
                 return;
             }
 
@@ -820,7 +1259,21 @@ require_once 'check_role.php';
                 cart: cart,
                 metodoPagoId: metodoPago.value,
                 total: cartTotal,
+                consumptionType: consumptionType,
+                tableId: selectedTableId
             };
+
+
+            // Mostrar loader mientras se procesa
+            Swal.fire({
+                title: 'Procesando pedido',
+                html: 'Por favor espera mientras confirmamos tu pago...',
+                allowOutsideClick: false,
+                didOpen: () => {
+                    Swal.showLoading();
+                }
+            });
+
 
             // Enviar los datos del carrito y el método de pago al servidor
             fetch('procesar_pedido.php', {
@@ -838,19 +1291,50 @@ require_once 'check_role.php';
             })
             .then(data => {
                 if (data.success) {
-                    alert('Pago realizado con éxito');
-                    cart = []; // Vaciar el carrito
-                    updateCartUI(); // Actualizar la interfaz
-                    closePaymentMethods(); // Cerrar el overlay de métodos de pago
+                    Swal.fire({
+                        icon: 'success',
+                        title: '¡Pedido completado!',
+                        text: 'Tu pago se ha procesado correctamente',
+                        confirmButtonColor: '#ff6f61',
+                        willClose: () => {
+                            cart = [];
+                            updateCartUI();
+                            closePaymentMethods();
+                            resetOrderData();
+                        }
+                    });
                 } else {
-                    alert('Hubo un error al procesar el pedido: ' + data.message);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error al procesar',
+                        text: data.message || 'Hubo un problema con tu pedido',
+                        confirmButtonColor: '#ff6f61'
+                    });
                 }
             })
             .catch(error => {
+
                 console.error('Error:', error);
-                alert('Hubo un error al procesar el pedido.');
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'No se pudo completar el pedido',
+                    confirmButtonColor: '#ff6f61'
+                });
             });
         }
+
+        // Función para resetear los datos de la orden
+        function resetOrderData() {
+            consumptionType = null;
+            selectedTableId = null;
+            cart = [];
+            updateCartUI();
+        }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>

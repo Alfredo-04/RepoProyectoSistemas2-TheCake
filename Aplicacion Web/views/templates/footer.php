@@ -35,9 +35,16 @@
     </div>
     <!-- Global Mailform Output-->
     <div class="snackbars" id="form-output-global"></div>
+    <!-- Script para el dropdown -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Javascript-->
     <script src="../public/assets/js/core.min.js"></script>
     <script src="../public/assets/js/scriptIndex.js"></script>
-    <!-- coded by Himic-->
+
+
+
+    
+
+
   </body>
 </html>

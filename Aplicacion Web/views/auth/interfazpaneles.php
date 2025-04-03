@@ -36,7 +36,6 @@ if (isset($_GET['error']) && $_GET['error'] == 'acceso_denegado') {
     </script>';
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -283,7 +282,6 @@ footer {
     </style>
     
 </head>
-<body>
 
 <body>
     <div class="preloader">
@@ -371,37 +369,21 @@ footer {
           </nav>
         </div>
       </header>
-    <!--  Menú de navegación
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="#">
-                <img src="../../public/assets/img/logo.png" alt="Logo" class="logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="interfazpaneles.php">PANELES</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav> -->
      
     <div class="container mt-5">
         <div class="text-center mb-5">
             <h2>¡Bienvenido, <?php echo $nombreUsuario; ?>!</h2>
             <h2>Tu rol es: <?php echo $rol; ?></h2>
             <form action="logout.php" method="POST">
-                <button type="submit" class="btnCerrarSesion">Cerrar sesión</button>
+                <button type="submit" class="btnCerrarSesion" style="background: #ff6f61; color: white">Cerrar sesión</button>
             </form>
         </div>
         <div class="row">
             <!-- Panel Hacer Pedido (Visible para Administrador y Mesero) -->
-            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 3) ? 'panel-disabled' : ''; ?>">
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 3 && $rolUsuario != 5) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
                     <h2>Hacer Pedido</h2>
-                    <?php if($rolUsuario == 1 || $rolUsuario == 3): ?>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 3 || $rolUsuario == 5): ?>
                         <button onclick="window.location.href='../pedido.php'">
                             <i class="fas fa-shopping-cart"></i> Ir a Pedido
                         </button>
@@ -447,10 +429,10 @@ footer {
         </div>
         <div class="row">
             <!-- Panel Historial de Pedidos (Visible para todos excepto Mesero) -->
-            <div class="col-md-4 <?php echo ($rolUsuario == 3) ? 'panel-disabled' : ''; ?>">
+            <div class="col-md-4 <?php echo ($rolUsuario == 3 || $rolUsuario == 5) ? 'panel-disabled' : ''; ?>">
                 <div class="panel">
                     <h2>Historial de Pedidos</h2>
-                    <?php if($rolUsuario != 3): ?>
+                    <?php if($rolUsuario != 3 || $rolUsuario == 5): ?>
                         <button onclick="window.location.href='../historial.php'">
                             <i class="fas fa-history"></i> Ver Historial
                         </button>
@@ -489,6 +471,22 @@ footer {
                     <?php else: ?>
                         <button disabled>
                             <i class="fas fa-boxes"></i> No disponible
+                        </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Panel Gestion Mesas (Visible para Administrador y Mesero) -->
+            <div class="col-md-4 <?php echo ($rolUsuario != 1 && $rolUsuario != 3) ? 'panel-disabled' : ''; ?>">
+                <div class="panel">
+                    <h2>Gestion de mesas</h2>
+                    <?php if($rolUsuario == 1 || $rolUsuario == 3): ?>
+                        <button onclick="window.location.href='../gestion_mesas.php'">
+                            <i class="fas fa-shopping-cart"></i> Mesas
+                        </button>
+                    <?php else: ?>
+                        <button disabled>
+                            <i class="fas fa-shopping-cart"></i> No disponible
                         </button>
                     <?php endif; ?>
                 </div>
@@ -539,6 +537,7 @@ footer {
 
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     

@@ -1,9 +1,14 @@
 <?php
-session_start(); // Iniciar la sesión
+session_start();
 
 // Verificar si el usuario ya está autenticado
 if (isset($_SESSION['id_usuario'])) {
-    header("Location: interfazpaneles.php"); // Redirigir a interfazpaneles.php
+    // Redirigir según el rol
+    if ($_SESSION['rol_id'] == 5) { // Si es cliente
+        header("Location: ../pedido.php"); // Cambia a index.php si prefieres
+    } else {
+        header("Location: interfazpaneles.php");
+    }
     exit;
 }
 ?>
@@ -22,6 +27,7 @@ if (isset($_SESSION['id_usuario'])) {
     <!-- En el head de tu HTML -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 </head>
 <body>
@@ -65,9 +71,21 @@ if (isset($_SESSION['id_usuario'])) {
                 <span class="error-message" id="signupRoleError"></span>
                 <input type="email" id="signupEmail" name="signupEmail" placeholder="Email" required>
                 <span class="error-message" id="signupEmailError"></span>
-                <input type="password" id="signupPassword" name="signupPassword" placeholder="Contraseña" required>
+                <!-- En el formulario de registro -->
+                <div class="input-wrapper">
+                    <input type="password" id="signupPassword" name="signupPassword" placeholder="Contraseña" required>
+                    <span class="toggle-password" onclick="togglePassword('signupPassword', this)">
+                        <i class="bi bi-eye-slash"></i> 
+                    </span>
+                </div>
                 <span class="error-message" id="signupPasswordError"></span>
-                <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirmar Contraseña" required>
+
+                <div class="input-wrapper">
+                    <input type="password" id="signupConfirmPassword" name="signupConfirmPassword" placeholder="Confirmar Contraseña" required>
+                    <span class="toggle-password" onclick="togglePassword('signupConfirmPassword', this)">
+                        <i class="bi bi-eye-slash"></i>
+                    </span>
+                </div>
                 <span class="error-message" id="signupConfirmPasswordError"></span>
                 <button type="submit">Registrarse</button>
             </form>
@@ -79,7 +97,13 @@ if (isset($_SESSION['id_usuario'])) {
                 <h1>Inicia Sesión</h1>
                 <input type="email" id="loginEmail" name="loginEmail" placeholder="Email" required>
                 <span class="error-message" id="loginEmailError"></span>
-                <input type="password" id="loginPassword" name="loginPassword" placeholder="Contraseña" required>
+                <!-- En el formulario de login -->
+                <div class="input-wrapper">
+                    <input type="password" id="loginPassword" name="loginPassword" placeholder="Contraseña" required>
+                    <span class="toggle-password" onclick="togglePassword('loginPassword', this)">
+                        <i class="bi bi-eye-slash"></i> <!-- Inicia con ojo cerrado -->
+                    </span>
+                </div>
                 <span class="error-message" id="loginPasswordError"></span>
                 <button type="submit">Iniciar Sesión</button>
             </form>
