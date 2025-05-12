@@ -1,0 +1,635 @@
+/* Estilos generales */
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #ffebeb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin: 0;
+    margin-bottom: 12px;
+    background: radial-gradient(circle, #be713e, #6d391e);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: fadeIn 1s ease-in-out;
+    font-size: 24px;
+}
+
+.title {
+    background: radial-gradient(circle, #714631, #563829);
+    background-clip: text;
+    font-size: 32px !important; 
+    line-height: 36px;
+    margin: 0;
+}
+
+p {
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 18px;
+    letter-spacing: 0.3px;
+    margin: 15px 0 20px;
+    color: #563829;
+    animation: fadeIn 1.5s ease-in-out;
+}
+
+button {
+    position: relative;
+    border-radius: 20px;
+    border: none;
+    background-color: #FAAAB4;
+    color: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+    margin: 8px;
+    padding: 10px 40px;
+    letter-spacing: 0.5px;
+    text-transform: capitalize;
+    transition: all 0.3s ease-in-out;
+    animation: fadeIn 2s ease-in-out;
+}
+
+button:hover {
+    background-color: #d46975;
+    letter-spacing: 3px;
+    transform: scale(1.05);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+button:focus {
+    outline: none;
+}
+
+button.ghost {
+    background-color: rgba(255, 255, 255, 0.466);
+    border: 2px solid #FFFFFF;
+    color: #684432;
+    animation: fadeIn 2.5s ease-in-out;
+}
+
+form {
+    background-color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    min-height: calc(100% - 40px); /* Considerar el padding */
+    padding: 20px;
+    height: 100%;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    animation: slideIn 1s ease-in-out;
+}
+
+input {
+    background-color: #fff2f3;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 12px;
+    margin: 6px 0;
+    width: 100%;
+    color: #684432;
+    transition: all 0.3s ease-in-out;
+    font-size: 13px;
+}
+
+input:focus {
+    background-color: #fcfcfc;
+    transform: scale(1.02);
+}
+
+input::placeholder {
+    color: #8D6A52;
+}
+
+.container {
+    background-color: #FFFFFF;
+    border-radius: 25px;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    position: relative;
+    overflow: hidden;
+    width: 768px;
+    max-width: 100%;
+    height: 650px !important; /* Forzamos la altura */
+    min-height: 650px !important;
+    margin: 10px auto; /* Centrado horizontal */
+    animation: fadeIn 0.5s ease-in-out;
+    display: flex; /* Nuevo: usaremos flexbox */
+}
+
+.logo {
+    position: absolute;
+    top: 17%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    border-radius: 50%;
+    height: auto;
+    z-index: 0;
+}
+
+.overlay-panel {
+    position: relative;
+    z-index: 1;
+}
+
+.form-container {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transition: all 0.6s ease-in-out;
+    overflow-y: auto; /* Habilitar scroll vertical cuando sea necesario */
+    
+    /* Estilos personalizados para la barra de scroll */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: #FAAAB4 #fff2f3; /* Para Firefox */
+}
+
+/* Estilos para la barra de scroll en Chrome/Edge/Safari */
+.form-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-container::-webkit-scrollbar-track {
+    background: #fff2f3;
+    border-radius: 10px;
+}
+
+.form-container::-webkit-scrollbar-thumb {
+    background-color: #FAAAB4;
+    border-radius: 10px;
+    border: 2px solid #fff2f3;
+}
+
+.form-container::-webkit-scrollbar-thumb:hover {
+    background-color: #d46975;
+}
+
+/* Formulario de REGISTRO (con más campos) */
+.register-container form {
+    width: 100%;
+    height: auto;
+    min-height: 100%; /* Ocupa toda la altura disponible */
+    justify-content: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Formulario de LOGIN (menos campos) */
+.login-container form {
+    width: 100%;
+    height: 100%;
+    justify-content: center; /* Mantiene centrado vertical */
+}
+
+.login-container {
+    left: 0;
+    z-index: 2;
+}
+
+.register-container {
+    
+    left: 0;
+    opacity: 0;
+    z-index: 1;
+}
+
+.container.right-panel-active .login-container {
+    transform: translateX(100%);
+}
+
+.container.right-panel-active .register-container {
+    transform: translateX(100%);
+    opacity: 1;
+    z-index: 5;
+    animation: show 0.6s;
+}
+
+@keyframes show {
+    0%,
+    49.99% {
+        opacity: 0;
+        z-index: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
+select {
+background-color: #fff2f3;
+    border-radius: 10px;
+    border: none;
+    padding: 10px 12px; /* Igual que los inputs */
+    margin: 6px 0; /* Igual que los inputs */
+    width: 100%;
+    color: #684432;
+    transition: all 0.3s ease-in-out;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+    font-size: 13px; /* Añadido para igualar los inputs */
+    height: auto; /* Asegurar altura automática */
+    line-height: normal; /* Resetear line-height */
+}
+
+select:focus {
+    background-color: #fcfcfc;
+    transform: scale(1.02);
+}
+
+select::placeholder {
+    color: #8D6A52;
+}
+
+/* Estilo para el ícono del select */
+.select-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.select-wrapper::after {
+    content: "▼";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #684432;
+}
+
+.overlay-container {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 50%;
+    height: 100%; /* Misma altura que el container */
+    overflow: hidden;
+    transition: transform 0.6s ease-in-out;
+    z-index: 100;
+}
+
+.container.right-panel-active .overlay-container {
+    transform: translate(-100%);
+}
+
+.overlay {
+    background: #fcd1d5;
+    color: #FFFFFF;
+    position: relative;
+    left: -100%;
+    height: 100%;
+    width: 200%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+    transform: translateX(50%);
+}
+
+.overlay-panel {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0 40px;
+    text-align: center;
+    top: 0;
+    height: 100%;
+    width: 50%;
+    transform: translateX(0);
+    transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+    transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+    transform: translateX(0);
+}
+
+.overlay-right {
+    right: 0;
+    transform: translateX(0);
+}
+
+.container.right-panel-active .overlay-right {
+    transform: translateX(20%);
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 0.8em;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    display: block;
+    height: 16px;
+    animation: shake 0.5s ease-in-out;
+}
+
+/* Animaciones personalizadas */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    25% {
+        transform: translateX(-10px);
+    }
+    75% {
+        transform: translateX(10px);
+    }
+}
+
+/* Estilos para móviles */
+@media (max-width: 480px) {
+    .container {
+        height: 100vh !important;
+        min-height: 100vh !important;
+        margin: 0;
+        flex-direction: column;
+        overflow-y: auto;
+        position: relative;
+    }
+
+    /* Reset completo de posicionamiento para móviles */
+    .form-container {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        left: 0 !important;
+        transform: none !important;
+        opacity: 1 !important;
+        box-sizing: border-box;
+    }
+
+    /* Formulario de registro */
+    .register-container {
+        display: none; /* Oculto inicialmente */
+    }
+
+    /* Formulario de login */
+    .login-container {
+        display: flex !important;
+    }
+
+    /* Cuando activamos el panel derecho (registro) */
+    .container.right-panel-active .login-container {
+        display: none !important;
+    }
+    
+    .container.right-panel-active .register-container {
+        display: flex !important;
+    }
+
+    .logo {
+        top: 50px;
+        width: 100px;
+    }
+
+    /* Ocultar el overlay en móviles */
+    .overlay-container {
+        display: none;
+    }
+
+    /* Ajustes específicos para los formularios */
+    form {
+        width: 100%;
+        height: auto;
+        min-height: calc(100vh - 100px);
+        padding-bottom: 80px; /* Espacio para botones */
+    }
+
+    .register-container form {
+        justify-content: flex-start;
+    }
+
+    .login-container form {
+        justify-content: center;
+    }
+}
+
+/* Botones de navegación móvil */
+.mobile-switch-buttons {
+    display: none;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    z-index: 100;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-switch-btn {
+    padding: 8px 20px !important;
+    margin: 0 !important;
+    font-size: 12px !important;
+    flex: 1;
+    max-width: 150px;
+}
+
+@media (min-width: 481px) {
+    .mobile-switch-buttons {
+        display: none !important;
+    }
+}
+/* Pantallas medianas (481px - 768px) */
+@media (min-width: 481px) and (max-width: 768px) {
+    .container {
+        width: 90%;
+        min-height: 600px;
+    }
+
+    h1.title {
+        font-size: 35px;
+        line-height: 35px;
+    }
+
+    button {
+        padding: 12px 45px;
+    }
+
+    input {
+        padding: 12px 14px;
+    }
+}
+
+/* Pantallas grandes (769px - 1024px) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .container {
+        width: 80%;
+        min-height: 650px;
+    }
+
+    h1.title {
+        font-size: 40px;
+        line-height: 40px;
+    }
+
+    button {
+        padding: 12px 50px;
+    }
+
+    input {
+        padding: 12px 15px;
+    }
+}
+
+/* Pantallas extra grandes (1025px - 1440px) */
+@media (min-width: 1025px) and (max-width: 1440px) {
+    .container {
+        width: 70%;
+        min-height: 700px;
+    }
+
+    h1.title {
+        font-size: 45px;
+        line-height: 45px;
+    }
+
+    button {
+        padding: 12px 55px;
+    }
+
+    input {
+        padding: 12px 16px;
+    }
+}
+
+/* Pantallas super grandes (más de 1440px) */
+@media (min-width: 1441px) {
+    .container {
+        width: 60%;
+        min-height: 750px;
+    }
+
+    h1.title {
+        font-size: 50px;
+        line-height: 50px;
+    }
+
+    button {
+        padding: 12px 60px;
+    }
+
+    input {
+        padding: 12px 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    select {
+        padding: 10px 12px;
+    }
+}
+
+
+/* Estilos para el ojo de contraseña - Versión integrada */
+.input-wrapper {
+    position: relative;
+    width: 100%;
+    margin: 6px 0;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #8D6A52;
+    transition: all 0.3s ease;
+    background: transparent;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+}
+
+.toggle-password:hover {
+    color: #684432;
+}
+
+/* Ajuste para los inputs con el ojo */
+.input-wrapper input[type="password"],
+.input-wrapper input[type="text"] {
+    padding-right: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Mantener el estilo de focus con el ojo */
+.input-wrapper input:focus {
+    background-color: #fcfcfc;
+    transform: scale(1.02);
+}
+
+
+
+
+
+.toggle-password {
+    /* Tus estilos existentes... */
+    transition: all 0.2s ease;
+}
+
+.toggle-password i {
+    font-size: 1.1rem;
+    transition: transform 0.2s ease;
+}
+
+/* Efecto al hacer hover */
+.toggle-password:hover i {
+    transform: scale(1.1);
+}
+
+/* Efecto al hacer click */
+.toggle-password:active i {
+    transform: scale(0.9);
+}
