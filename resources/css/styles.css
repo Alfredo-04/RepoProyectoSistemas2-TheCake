@@ -1,0 +1,218 @@
+/* Estilos generales */
+body {
+    background-color: #f8a29b; /* Fondo rosa pastel */
+    color: #5a2e2e; /* Color de texto oscuro para contraste */
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* Panel principal */
+.panel {
+    background-color: #f4cac7;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    text-align: center;
+    margin: 30px auto;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s ease-in-out;
+}
+
+.panel:hover {
+    transform: scale(1.02);
+}
+
+/* Botones */
+.panel button {
+    background-color: #ffbc0a;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 16px;
+    margin: 10px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 220px;
+    cursor: pointer;
+    box-shadow: 2px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.panel button:hover {
+    background-color: #f497b7;
+    transform: translateY(-3px);
+    box-shadow: 2px 6px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Pie de página */
+footer {
+    background-color: #f4cac7;
+    color: #a97575;
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    border-radius: 10px;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1000px;
+    margin: auto;
+    text-align: left;
+}
+
+.footer-section {
+    width: 30%;
+}
+
+.footer-section.center {
+    text-align: center;
+}
+
+.footer-section.right {
+    text-align: right;
+}
+
+h2 {
+    font-weight: bold;
+    font-size: 22px;
+    color: #8a6565;
+}
+
+
+
+/* Imágenes del encabezado */
+header img {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Contenedor del logo */
+.logo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    margin-bottom: 20px;
+}
+
+.logo-container img {
+    max-height: 180px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* Barra de navegación */
+nav {
+    background-color: #f8a29b; /* Fondo rosa pastel */
+    padding: 15px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    text-align: center;
+    border-bottom: 3px solid #fff;
+}
+
+/* Lista del menú */
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 0;
+    margin: 0;
+}
+
+/* Ítems del menú */
+nav ul li {
+    display: inline;
+}
+
+/* Enlaces del menú */
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease-in-out;
+    position: relative;
+}
+
+/* Efecto hover */
+nav ul li a:hover {
+    color: #f4cac7;
+}
+
+/* Subrayado animado */
+nav ul li a::after {
+    content: "";
+    display: block;
+    height: 3px;
+    width: 0;
+    background-color: #fff;
+    transition: width 0.3s ease-in-out;
+    margin: auto;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+
+/* Diseño responsivo */
+@media (max-width: 768px) {
+    .panel {
+        max-width: 90%;
+        padding: 20px;
+    }
+    
+    .panel button {
+        max-width: 100%;
+    }
+
+    .logo-container img {
+        max-height: 140px;
+    }
+
+    header img {
+        max-height: 200px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        text-align: center;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-section {
+        width: 100%;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+}
